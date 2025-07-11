@@ -3,53 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jetskig | Premium Digital Solutions</title>
+    <title>Jetskig | Premium Mobile Experiences</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --black: #000000;
-            --white: #ffffff;
-            --gray: #f5f5f5;
-            --dark-gray: #222222;
+            --jet-black: #000000;
+            --pure-white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --dark-charcoal: #1A1A1A;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Helvetica Now Display', sans-serif;
         }
         
         body {
-            background-color: var(--white);
-            color: var(--black);
+            background-color: var(--pure-white);
+            color: var(--jet-black);
             line-height: 1.8;
+            font-weight: 300;
         }
         
-        /* Navigation */
+        /* Ultra Minimal Navigation */
         .navbar {
-            background: var(--white);
             position: fixed;
             width: 100%;
+            padding: 25px 5%;
             z-index: 1000;
-            padding: 25px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-        
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
+            background: rgba(255,255,255,0.97);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         
         .logo {
-            font-size: 1.8rem;
+            font-size: 28px;
             font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--black);
+            letter-spacing: 3px;
+            color: var(--jet-black);
             text-decoration: none;
         }
         
@@ -58,133 +50,133 @@
             height: 100vh;
             display: flex;
             align-items: center;
-            padding-top: 80px;
-            background: var(--gray);
+            padding: 0 5%;
+            background: var(--light-gray);
         }
         
         .hero-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 40px;
-            text-align: center;
         }
         
         .hero h1 {
-            font-size: 4rem;
-            font-weight: 300;
-            margin-bottom: 30px;
-            letter-spacing: 3px;
+            font-size: 3.5rem;
+            font-weight: 350;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            line-height: 1.2;
         }
         
         .hero p {
             font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 50px;
+            max-width: 600px;
+            margin-bottom: 40px;
             font-weight: 300;
         }
         
         .btn {
             display: inline-block;
-            border: 1px solid var(--black);
-            color: var(--black);
-            padding: 15px 40px;
+            padding: 16px 40px;
+            border: 1px solid var(--jet-black);
+            color: var(--jet-black);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 400;
             letter-spacing: 1px;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
         .btn:hover {
-            background: var(--black);
-            color: var(--white);
+            background: var(--jet-black);
+            color: var(--pure-white);
         }
         
-        /* Features */
+        /* App Features */
         .features {
-            padding: 120px 0;
-            background: var(--white);
-        }
-        
-        .features-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
+            padding: 120px 5%;
+            background: var(--pure-white);
         }
         
         .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 300;
+            font-size: 2.2rem;
+            font-weight: 350;
             margin-bottom: 80px;
-            letter-spacing: 2px;
+            text-align: center;
+            letter-spacing: 1px;
         }
         
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
-        }
-        
-        .feature {
-            text-align: center;
-            padding: 40px 30px;
-        }
-        
-        .feature i {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: var(--black);
-        }
-        
-        .feature h3 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-        
-        /* Screenshots */
-        .screenshots {
-            padding: 120px 0;
-            background: var(--gray);
-        }
-        
-        .screenshot-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 40px;
+        }
+        
+        .feature-card {
+            padding: 40px 30px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--jet-black);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        
+        /* App Screenshots */
+        .screenshots {
+            padding: 100px 5%;
+            background: var(--light-gray);
+        }
+        
+        .screenshot-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .screenshot {
-            background: var(--white);
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            width: 250px;
+            border-radius: 2px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
         }
         
-        .screenshot img {
-            width: 100%;
-            height: auto;
+        .screenshot:hover {
+            transform: scale(1.03);
         }
         
-        /* Download */
+        /* Download CTA */
         .download {
-            padding: 120px 0;
+            padding: 120px 5%;
             text-align: center;
-            background: var(--white);
+            background: var(--pure-white);
         }
         
-        .download .btn {
-            margin-top: 40px;
+        .download p {
+            max-width: 600px;
+            margin: 0 auto 40px;
         }
         
         /* Footer */
         footer {
-            background: var(--black);
-            color: var(--white);
-            padding: 80px 0 30px;
+            background: var(--jet-black);
+            color: var(--pure-white);
+            padding: 80px 5% 40px;
             text-align: center;
         }
         
@@ -192,24 +184,28 @@
             font-size: 2rem;
             font-weight: 700;
             letter-spacing: 3px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             display: inline-block;
         }
         
         .copyright {
             margin-top: 60px;
             font-size: 0.9rem;
-            opacity: 0.7;
+            opacity: 0.6;
         }
         
-        /* Responsive */
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 14px 30px;
             }
         }
     </style>
@@ -217,71 +213,69 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">JETSKIG</a>
-        </div>
+        <a href="#" class="logo">JETSKIG</a>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>PREMIUM DIGITAL EXPERIENCE</h1>
-            <p>Innovative solutions crafted with precision and elegance for the modern world.</p>
-            <a href="#download" class="btn">Explore Now</a>
+            <h1>Crafting Premium Mobile Experiences</h1>
+            <p>Jetskig delivers meticulously designed applications that redefine digital excellence.</p>
+            <a href="#download" class="btn">Explore on Google Play</a>
         </div>
     </section>
 
     <!-- Features -->
     <section class="features">
-        <div class="features-container">
-            <h2 class="section-title">Why Choose Us</h2>
-            <div class="features-grid">
-                <div class="feature">
-                    <i class="fas fa-gem"></i>
-                    <h3>Luxury Design</h3>
-                    <p>Minimalist aesthetics with premium quality standards.</p>
+        <h2 class="section-title">Why Jetskig Stands Out</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bezier-curve"></i>
                 </div>
-                <div class="feature">
-                    <i class="fas fa-bolt"></i>
-                    <h3>High Performance</h3>
-                    <p>Optimized for speed and seamless experience.</p>
+                <h3>Minimalist Design</h3>
+                <p>Every pixel carefully crafted for maximum impact and clarity.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
                 </div>
-                <div class="feature">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Privacy Focused</h3>
-                    <p>Your data security is our top priority.</p>
+                <h3>Optimized Performance</h3>
+                <p>Lightning-fast responsiveness tailored to modern devices.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-fingerprint"></i>
                 </div>
+                <h3>Privacy First</h3>
+                <p>Enterprise-grade security protecting your data.</p>
             </div>
         </div>
     </section>
 
     <!-- Screenshots -->
     <section class="screenshots">
-        <h2 class="section-title">Preview</h2>
-        <div class="screenshot-grid">
-            <div class="screenshot">
-                <img src="screenshot1.jpg" alt="App Screenshot 1">
-            </div>
-            <div class="screenshot">
-                <img src="screenshot2.jpg" alt="App Screenshot 2">
-            </div>
-            <div class="screenshot">
-                <img src="screenshot3.jpg" alt="App Screenshot 3">
-            </div>
+        <h2 class="section-title">Experience the Difference</h2>
+        <div class="screenshot-container">
+            <img src="screenshot1.jpg" alt="App Interface" class="screenshot">
+            <img src="screenshot2.jpg" alt="App Features" class="screenshot">
+            <img src="screenshot3.jpg" alt="App Dashboard" class="screenshot">
         </div>
     </section>
 
     <!-- Download -->
     <section class="download" id="download">
         <h2 class="section-title">Available Now</h2>
-        <p>Download our application from Google Play Store</p>
-        <a href="https://play.google.com/store/apps/details?id=com.yourapp.package" class="btn">Get on Google Play</a>
+        <p>Download Jetskig applications directly from Google Play Store</p>
+        <a href="https://play.google.com/store/apps/details?id=com.jetskig.package" class="btn">
+            <i class="fab fa-google-play"></i> Get on Google Play
+        </a>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-logo">JETSKIG</div>
-        <p>Premium digital solutions for the modern era</p>
+        <p>Redefining mobile excellence</p>
         <p class="copyright">© 2023 Jetskig. All rights reserved.</p>
     </footer>
 </body>
