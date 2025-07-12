@@ -178,40 +178,6 @@
       transform: scale(0.95);
     }
 
-    /* İlk uygulama özel animasyon */
-    .first-app {
-      transition: transform 0.8s ease, box-shadow 0.8s ease, border-color 0.8s ease;
-      border: 2px solid transparent;
-      position: relative;
-      z-index: 1;
-    }
-    .first-app.enlarged {
-      transform: scale(1.2) rotate(2deg);
-      border-color: #fff;
-      box-shadow: 0 0 45px rgba(255, 255, 255, 0.4);
-      z-index: 50;
-    }
-    .first-app.show-button .get-button {
-      display: block;
-      animation: fadeInUp 0.6s ease forwards;
-      opacity: 1;
-    }
-    .get-button {
-      display: none;
-      opacity: 0;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     /* Hakkımızda Bölümü */
     #about {
       background: #111;
@@ -326,7 +292,7 @@
       transform: scale(0.95);
     }
 
-    /* Basit CAPTCHA alanı */
+    /* CAPTCHA alanı */
     .captcha {
       display: flex;
       align-items: center;
@@ -388,6 +354,51 @@
       fill: #fff;
     }
 
+    /* Ekibimiz Bölümü */
+    #team {
+      background: #000;
+      padding: 4rem 2rem;
+    }
+    #team h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .team-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .team-member {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 280px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .team-member:hover {
+      transform: translateY(-10px);
+    }
+    .team-member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      margin-bottom: 1rem;
+    }
+    .team-member h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .team-member p {
+      color: #ccc;
+    }
+
     /* Responsive */
     @media (max-width: 720px) {
       nav ul {
@@ -400,6 +411,10 @@
       #apps {
         grid-template-columns: 1fr;
         padding: 2rem 1rem 4rem;
+      }
+      .team-container {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
@@ -418,65 +433,94 @@
   <header>J E T S K I G &nbsp;&nbsp; UYGULAMALAR</header>
 
   <section id="apps" aria-label="Uygulamalarımız">
-    <!-- İlk Uygulama (Animasyonlu ve Butonlu) -->
-    <article class="app-card first-app" id="firstApp" tabindex="0" aria-describedby="firstAppDesc">
+    <!-- Uygulama Kartları -->
+    <article class="app-card" tabindex="0">
       <h2>Uygulama Adı 1</h2>
-      <p id="firstAppDesc">Bu uygulama karanlık tema için özel optimize edilmiştir. Güçlü, sade ve etkileyici kullanıcı deneyimi sunar.</p>
-      <button class="get-button" aria-label="Play Store’dan Edinin" onclick="window.open('PLAY_STORE_LINK_HERE', '_blank')">Play Store’dan Edinin</button>
+      <p>Bu uygulama karanlık tema için özel optimize edilmiştir. Güçlü, sade ve etkileyici kullanıcı deneyimi sunar.</p>
+      <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
     </article>
 
-    <!-- Diğer Uygulamalar (Statik Kartlar) -->
-    <article class="app-card" tabindex="0" aria-describedby="app2Desc">
+    <article class="app-card" tabindex="0">
       <h2>Uygulama Adı 2</h2>
-      <p id="app2Desc">Basit, hızlı ve güvenilir performans ile kullanıcıların beğenisini kazanmıştır.</p>
-      <button class="get-button" onclick="window.open('PLAY_STORE_LINK_HERE', '_blank')">Play Store’dan Edinin</button>
+      <p>Basit, hızlı ve güvenilir performans ile kullanıcıların beğenisini kazanmıştır.</p>
+      <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
     </article>
-    <article class="app-card" tabindex="0" aria-describedby="app3Desc">
+
+    <article class="app-card" tabindex="0">
       <h2>Uygulama Adı 3</h2>
-      <p id="app3Desc">Modern tasarımı ve kullanıcı dostu arayüzü ile ön plana çıkar.</p>
-      <button class="get-button" onclick="window.open('PLAY_STORE_LINK_HERE', '_blank')">Play Store’dan Edinin</button>
+      <p>Modern tasarımı ve kullanıcı dostu arayüzü ile ön plana çıkar.</p>
+      <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
     </article>
-    <article class="app-card" tabindex="0" aria-describedby="app4Desc">
+
+    <article class="app-card" tabindex="0">
       <h2>Uygulama Adı 4</h2>
-      <p id="app4Desc">Yenilikçi özellikleri sayesinde sektöründe fark yaratır.</p>
-      <button class="get-button" onclick="window.open('PLAY_STORE_LINK_HERE', '_blank')">Play Store’dan Edinin</button>
+      <p>Yenilikçi özellikleri sayesinde sektöründe fark yaratır.</p>
+      <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
     </article>
-    <article class="app-card" tabindex="0" aria-describedby="app5Desc">
+
+    <article class="app-card" tabindex="0">
       <h2>Uygulama Adı 5</h2>
-      <p id="app5Desc">Kullanıcı geri bildirimleriyle sürekli geliştirilen güçlü bir platform.</p>
-      <button class="get-button" onclick="window.open('PLAY_STORE_LINK_HERE', '_blank')">Play Store’dan Edinin</button>
+      <p>Kullanıcı geri bildirimleriyle sürekli geliştirilen güçlü bir platform.</p>
+      <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
     </article>
   </section>
 
   <section id="about" aria-label="Hakkımızda">
     <h2>Hakkımızda</h2>
     <p>
-      Jetskig, kullanıcıların hayatlarını kolaylaştıran sade ve işlevsel uygulamalar geliştirir. Siyah-beyaz temamızla modern ve şık bir deneyim sunuyoruz.
-      Ekip olarak kalite, hız ve güvenilirliği ön planda tutuyoruz.
+      Jetskig, kullanıcıların hayatlarını kolaylaştıran sade ve işlevsel uygulamalar geliştirir. 
+      Siyah-beyaz temamızla modern ve şık bir deneyim sunuyoruz.
     </p>
     <div class="icons-container" role="img" aria-label="Hakkımızda ikonları">
-      <div class="icon-box" title="Yenilik">
-        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M32 2a30 30 0 1030 30A30.034 30.034 0 0032 2zm0 56a26 26 0 1126-26 26.03 26.03 0 01-26 26z"/><path d="M44.586 19.414a2 2 0 10-2.828-2.828L32 26.344l-9.758-9.758a2 2 0 10-2.828 2.828L29.172 29.172 19.414 38.93a2 2 0 102.828 2.828L32 31.656l9.758 9.758a2 2 0 102.828-2.828L34.828 29.172z"/></svg>
+      <div class="icon-box" title="E-posta">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
       </div>
-      <div class="icon-box" title="Kalite">
-        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="30" stroke="#ccc" stroke-width="2" fill="none"/><path d="M12 32l10 10 20-20" stroke="#ccc" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="icon-box" title="Android">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.3-.15-.68-.04-.85.26l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.71c-.2-.3-.58-.38-.87-.17-.3.2-.37.58-.17.87l1.84 3.18C3.17 11.06 1 14.4 1 18.31 1 19.66 2.34 21 3.69 21h16.61c1.35 0 2.69-1.34 2.69-2.69 0-3.91-2.17-7.25-5.39-8.83zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/>
+        </svg>
       </div>
-      <div class="icon-box" title="Güvenilirlik">
-        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M32 4a28 28 0 1028 28A28.032 28.032 0 0032 4zm0 50a22 22 0 1122-22 22.025 22.025 0 01-22 22z"/><path d="M24 32l8 8 12-16" stroke="#ccc" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="icon-box" title="Telefon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="team">
+    <h2>Ekibimiz</h2>
+    <div class="team-container">
+      <div class="team-member">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Hakan">
+        <h3>Hakan</h3>
+        <p>Kurucu & CEO</p>
+      </div>
+      <div class="team-member">
+        <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Hakan">
+        <h3>Hakan</h3>
+        <p>Baş Yazılımcı</p>
+      </div>
+      <div class="team-member">
+        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Hakan">
+        <h3>Hakan</h3>
+        <p>UX/UI Tasarımcısı</p>
       </div>
     </div>
   </section>
 
   <section id="contact" aria-label="İletişim">
     <h2>İletişim</h2>
-    <form id="contactForm" novalidate>
-      <input type="text" id="name" name="name" placeholder="Adınız" required autocomplete="off" aria-label="Adınız" />
-      <input type="email" id="email" name="email" placeholder="E-posta Adresiniz" required autocomplete="off" aria-label="E-posta Adresiniz" />
+    <form id="contactForm">
+      <input type="text" id="name" name="name" placeholder="Adınız" required aria-label="Adınız">
+      <input type="email" id="email" name="email" placeholder="E-posta Adresiniz" required aria-label="E-posta Adresiniz">
       <textarea id="message" name="message" rows="5" placeholder="Mesajınız" required aria-label="Mesajınız"></textarea>
 
       <div class="captcha" aria-label="Spam koruması">
-        <span id="captchaQuestion">3 + 4 = ?</span>
-        <input type="text" id="captchaAnswer" name="captchaAnswer" placeholder="Cevap" required autocomplete="off" aria-label="Captcha Cevabı" pattern="\d+" />
+        <span id="captchaQuestion"></span>
+        <input type="text" id="captchaAnswer" name="captchaAnswer" placeholder="Cevap" required aria-label="Captcha Cevabı">
       </div>
 
       <button type="submit">Gönder</button>
@@ -499,428 +543,34 @@
   </footer>
 
   <script>
-    // Pasta animasyonu ve "Play Store’dan Edinin" butonunun görünmesi için JS
-    document.addEventListener('DOMContentLoaded', () => {
-      const firstAppCard = document.querySelector('.app-card:first-child');
-      if (!firstAppCard) return;
+    // CAPTCHA oluşturma
+    function generateCaptcha() {
+      const num1 = Math.floor(Math.random() * 5) + 1;
+      const num2 = Math.floor(Math.random() * 5) + 1;
+      document.getElementById('captchaQuestion').textContent = `${num1} + ${num2} = ?`;
+      sessionStorage.setItem('captchaAnswer', num1 + num2);
+    }
 
-      const playButton = firstAppCard.querySelector('.get-button');
-      const cakeImage = document.createElement('img');
-      cakeImage.src = 'https://cdn.pixabay.com/photo/2014/12/21/23/28/cake-575455_1280.png'; // gerçek pasta resmi
-      cakeImage.alt = 'Doğum Günü Pastası';
-      cakeImage.style.width = '120px';
-      cakeImage.style.display = 'block';
-      cakeImage.style.margin = '0 auto 15px auto';
-      cakeImage.style.opacity = '0';
-      cakeImage.style.transition = 'opacity 1s ease-in-out';
-
-      firstAppCard.insertBefore(cakeImage, playButton);
-
-      // Animasyon: Pasta resmi yavaşça görünür, ardından buton görünür
-      setTimeout(() => {
-        cakeImage.style.opacity = '1';
-      }, 500);
-
-      setTimeout(() => {
-        playButton.style.display = 'inline-block';
-      }, 2000);
-
-      // İlk uygulama kartına büyüme animasyonu ekle
-      firstAppCard.style.transformOrigin = 'center center';
-      firstAppCard.style.transition = 'transform 1s ease';
-
-      setTimeout(() => {
-        firstAppCard.style.transform = 'scale(1.1)';
-      }, 2500);
-
-      setTimeout(() => {
-        firstAppCard.style.transform = 'scale(1)';
-      }, 3500);
+    // Form gönderim işlemi
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const userAnswer = document.getElementById('captchaAnswer').value;
+      const correctAnswer = sessionStorage.getItem('captchaAnswer');
+      
+      if(userAnswer !== correctAnswer) {
+        alert('Lütfen CAPTCHA doğru cevaplayın!');
+        generateCaptcha();
+        return;
+      }
+      
+      alert('Mesajınız iletildi!');
+      this.reset();
+      generateCaptcha();
     });
+
+    // Sayfa yüklendiğinde CAPTCHA oluştur
+    document.addEventListener('DOMContentLoaded', generateCaptcha);
   </script>
 </body>
 </html>
-<!-- DEVAM -->
-
-<section id="features" style="padding: 4rem 2rem; background: #000; color: #eee;">
-  <h2 style="text-align:center; font-size:2.5rem; margin-bottom:2rem;">Özelliklerimiz</h2>
-  <div style="max-width: 900px; margin: auto; display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;">
-    <div style="flex: 1 1 280px; background: #111; border: 1px solid #333; padding: 1.5rem; border-radius: 12px; box-shadow: 0 0 15px #222;">
-      <h3 style="margin-bottom: 1rem; font-size: 1.3rem; color: #fff;">Yüksek Performans</h3>
-      <p style="color: #bbb;">Uygulamalarımız hızlı, stabil ve düşük kaynak kullanımı ile cihazınızda sorunsuz çalışır.</p>
-    </div>
-    <div style="flex: 1 1 280px; background: #111; border: 1px solid #333; padding: 1.5rem; border-radius: 12px; box-shadow: 0 0 15px #222;">
-      <h3 style="margin-bottom: 1rem; font-size: 1.3rem; color: #fff;">Kullanıcı Dostu Tasarım</h3>
-      <p style="color: #bbb;">Minimalist ve estetik arayüzler ile kullanıcı deneyimini en üst seviyeye çıkarıyoruz.</p>
-    </div>
-    <div style="flex: 1 1 280px; background: #111; border: 1px solid #333; padding: 1.5rem; border-radius: 12px; box-shadow: 0 0 15px #222;">
-      <h3 style="margin-bottom: 1rem; font-size: 1.3rem; color: #fff;">Düzenli Güncellemeler</h3>
-      <p style="color: #bbb;">Sürekli olarak uygulamalarımızı geliştirir, yeni özellikler ekler ve hataları düzeltiriz.</p>
-    </div>
-  </div>
-</section>
-
-<section id="testimonials" style="padding: 4rem 2rem; background: #111; color: #ddd;">
-  <h2 style="text-align:center; font-size:2.5rem; margin-bottom:2rem;">Kullanıcı Yorumları</h2>
-  <div style="max-width: 900px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 2rem;">
-    <div style="background: #222; padding: 1.5rem; border-radius: 10px; box-shadow: 0 0 10px #000;">
-      <p style="font-style: italic;">"Jetskig'in uygulamaları gerçekten hayatımı kolaylaştırdı. Hem hızlı hem şık tasarımlar!"</p>
-      <p style="font-weight: bold; margin-top: 1rem;">- Ayşe K.</p>
-    </div>
-    <div style="background: #222; padding: 1.5rem; border-radius: 10px; box-shadow: 0 0 10px #000;">
-      <p style="font-style: italic;">"Düzenli güncellemelerle her zaman yeni özellikler geliyor. Harika bir deneyim."</p>
-      <p style="font-weight: bold; margin-top: 1rem;">- Mehmet T.</p>
-    </div>
-    <div style="background: #222; padding: 1.5rem; border-radius: 10px; box-shadow: 0 0 10px #000;">
-      <p style="font-style: italic;">"Uygulamalardaki performans ve sadelik beni çok etkiledi. Kesinlikle tavsiye ederim."</p>
-      <p style="font-weight: bold; margin-top: 1rem;">- Deniz A.</p>
-    </div>
-  </div>
-</section>
-
-<section id="faq" style="padding: 4rem 2rem; background: #000; color: #eee;">
-  <h2 style="text-align:center; font-size:2.5rem; margin-bottom:2rem;">Sıkça Sorulan Sorular</h2>
-  <div style="max-width: 800px; margin: auto;">
-    <details style="background: #111; margin-bottom: 1rem; padding: 1rem; border-radius: 8px; border: 1px solid #333;">
-      <summary style="font-weight: bold; cursor: pointer;">Uygulamalarınız hangi platformlarda çalışıyor?</summary>
-      <p style="margin-top: 0.5rem; color: #bbb;">Tüm uygulamalarımız Android cihazlar için optimize edilmiştir ve Play Store’dan indirilebilir.</p>
-    </details>
-    <details style="background: #111; margin-bottom: 1rem; padding: 1rem; border-radius: 8px; border: 1px solid #333;">
-      <summary style="font-weight: bold; cursor: pointer;">Uygulamalar ücretsiz mi?</summary>
-      <p style="margin-top: 0.5rem; color: #bbb;">Bazı uygulamalarımız ücretsizdir, bazıları ise premium özellikler içerebilir.</p>
-    </details>
-    <details style="background: #111; margin-bottom: 1rem; padding: 1rem; border-radius: 8px; border: 1px solid #333;">
-      <summary style="font-weight: bold; cursor: pointer;">Güncellemeler ne sıklıkla geliyor?</summary>
-      <p style="margin-top: 0.5rem; color: #bbb;">Ortalama olarak aylık güncellemeler yayınlamaktayız, kullanıcı geri bildirimlerine göre hızlandırabiliriz.</p>
-    </details>
-  </div>
-</section>
-
-<style>
-  /* Animasyonlar */
-  @keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 0 10px #fff; }
-    50% { transform: scale(1.05); box-shadow: 0 0 20px #fff; }
-    100% { transform: scale(1); box-shadow: 0 0 10px #fff; }
-  }
-  .pulse {
-    animation: pulse 2s infinite;
-  }
-</style>
-
-<script>
-  // Menü linklerine yumuşak kaydırma
-  document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const targetId = link.getAttribute('href').substring(1);
-      const targetSection = document.getElementById(targetId);
-      if(targetSection){
-        window.scrollTo({
-          top: targetSection.offsetTop - 60,
-          behavior: 'smooth'
-        });
-      }
-    });
-  });
-
-  // İlk uygulama kartına pulse animasyonu ekle ve play store butonunu büyült
-  const firstAppCard = document.querySelector('.first-app');
-  const getButton = firstAppCard.querySelector('.get-button');
-
-  let isEnlarged = false;
-
-  window.addEventListener('scroll', () => {
-    const rect = firstAppCard.getBoundingClientRect();
-    if(rect.top >= 0 && rect.bottom <= window.innerHeight){
-      if(!isEnlarged){
-        firstAppCard.classList.add('enlarged', 'show-button', 'pulse');
-        getButton.style.transform = 'scale(1.1)';
-        isEnlarged = true;
-      }
-    } else {
-      if(isEnlarged){
-        firstAppCard.classList.remove('enlarged', 'show-button', 'pulse');
-        getButton.style.transform = 'scale(1)';
-        isEnlarged = false;
-      }
-    }
-  });
-</script>
-<!-- DEVAM -->
-
-<section id="gallery" style="background: #111; color: #eee; padding: 4rem 2rem;">
-  <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem;">Galeri</h2>
-  <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 1rem; max-width: 1000px; margin: auto;">
-    <img src="https://picsum.photos/id/1015/400/300" alt="Gallery Image 1" class="gallery-img" style="width: 100%; border-radius: 12px; cursor: pointer; transition: transform 0.3s ease;">
-    <img src="https://picsum.photos/id/1016/400/300" alt="Gallery Image 2" class="gallery-img" style="width: 100%; border-radius: 12px; cursor: pointer; transition: transform 0.3s ease;">
-    <img src="https://picsum.photos/id/1018/400/300" alt="Gallery Image 3" class="gallery-img" style="width: 100%; border-radius: 12px; cursor: pointer; transition: transform 0.3s ease;">
-    <img src="https://picsum.photos/id/1020/400/300" alt="Gallery Image 4" class="gallery-img" style="width: 100%; border-radius: 12px; cursor: pointer; transition: transform 0.3s ease;">
-    <img src="https://picsum.photos/id/1024/400/300" alt="Gallery Image 5" class="gallery-img" style="width: 100%; border-radius: 12px; cursor: pointer; transition: transform 0.3s ease;">
-  </div>
-</section>
-
-<!-- Modal for gallery images -->
-<div id="modal" style="display:none; position: fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000;">
-  <img id="modal-img" src="" alt="Expanded Image" style="max-width: 90vw; max-height: 90vh; border-radius: 10px; box-shadow: 0 0 30px #fff;">
-  <span id="modal-close" style="position: absolute; top: 20px; right: 30px; font-size: 3rem; color: #fff; cursor: pointer; user-select:none;">&times;</span>
-</div>
-
-<section id="newsletter" style="background: #222; color: #eee; padding: 3rem 2rem; text-align: center;">
-  <h2 style="font-size: 2rem; margin-bottom: 1rem;">Bültenimize Abone Olun</h2>
-  <p style="margin-bottom: 2rem; max-width: 600px; margin-left:auto; margin-right:auto; color: #ccc;">
-    En son haberlerden, güncellemelerden ve özel fırsatlardan haberdar olun.
-  </p>
-  <form id="newsletter-form" style="max-width: 400px; margin: auto; display: flex; gap: 0.5rem;">
-    <input type="email" placeholder="E-posta adresiniz" required style="flex: 1; padding: 0.8rem; border-radius: 6px; border: none; font-size: 1rem;">
-    <button type="submit" style="background: #7e57c2; border: none; color: white; padding: 0 1.5rem; font-size: 1rem; border-radius: 6px; cursor: pointer; transition: background 0.3s ease;">
-      Abone Ol
-    </button>
-  </form>
-  <p id="newsletter-msg" style="margin-top: 1rem; color: #a5d6a7; display: none;">Teşekkürler, abone oldunuz!</p>
-</section>
-
-<style>
-  /* Gallery hover */
-  .gallery-img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #7e57c2;
-  }
-</style>
-
-<script>
-  // Galeri modal açma kapama
-  const galleryImgs = document.querySelectorAll('.gallery-img');
-  const modal = document.getElementById('modal');
-  const modalImg = document.getElementById('modal-img');
-  const modalClose = document.getElementById('modal-close');
-
-  galleryImgs.forEach(img => {
-    img.addEventListener('click', () => {
-      modal.style.display = 'flex';
-      modalImg.src = img.src;
-      modalImg.alt = img.alt;
-    });
-  });
-
-  modalClose.addEventListener('click', () => {
-    modal.style.display = 'none';
-    modalImg.src = '';
-    modalImg.alt = '';
-  });
-
-  // Modal dışına tıklayınca da kapansın
-  modal.addEventListener('click', (e) => {
-    if(e.target === modal){
-      modal.style.display = 'none';
-      modalImg.src = '';
-      modalImg.alt = '';
-    }
-  });
-
-  // Newsletter form submit
-  const newsletterForm = document.getElementById('newsletter-form');
-  const newsletterMsg = document.getElementById('newsletter-msg');
-
-  newsletterForm.addEventListener('submit', e => {
-    e.preventDefault();
-    // Basit doğrulama ve teşekkür mesajı gösterimi
-    newsletterMsg.style.display = 'block';
-    newsletterForm.reset();
-
-    // Mesaj 4 saniye sonra kaybolur
-    setTimeout(() => {
-      newsletterMsg.style.display = 'none';
-    }, 4000);
-  });
-</script>
-<!-- Ekibimiz Bölümü -->
-<section id="team" style="background: #000; color: #eee; padding: 5rem 2rem;">
-  <h2 style="text-align: center; font-size: 2.8rem; margin-bottom: 3rem;">Ekibimiz</h2>
-  <div class="team-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; max-width: 1200px; margin: auto;">
-    
-    <div class="team-member" style="background: #1a1a1a; border-radius: 12px; padding: 2rem; width: 280px; box-shadow: 0 0 15px #7e57c2; text-align: center;">
-      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ahmet Yılmaz" style="width: 140px; height: 140px; border-radius: 50%; margin-bottom: 1rem; object-fit: cover; border: 3px solid #7e57c2;">
-      <h3 style="margin-bottom: 0.5rem;">Ahmet Yılmaz</h3>
-      <p style="color: #aaa; font-style: italic;">Kurucu & CEO</p>
-      <p style="font-size: 0.9rem; color: #ccc;">Ahmet, teknoloji tutkunu ve ekibimizin lideridir. Yazılım mimarisi ve strateji üzerine çalışmaktadır.</p>
-    </div>
-    
-    <div class="team-member" style="background: #1a1a1a; border-radius: 12px; padding: 2rem; width: 280px; box-shadow: 0 0 15px #7e57c2; text-align: center;">
-      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Elif Demir" style="width: 140px; height: 140px; border-radius: 50%; margin-bottom: 1rem; object-fit: cover; border: 3px solid #7e57c2;">
-      <h3 style="margin-bottom: 0.5rem;">Elif Demir</h3>
-      <p style="color: #aaa; font-style: italic;">Baş Yazılımcı</p>
-      <p style="font-size: 0.9rem; color: #ccc;">Elif, front-end ve back-end geliştirmelerde uzmanlaşmış, kullanıcı deneyimine odaklanan bir yazılımcıdır.</p>
-    </div>
-    
-    <div class="team-member" style="background: #1a1a1a; border-radius: 12px; padding: 2rem; width: 280px; box-shadow: 0 0 15px #7e57c2; text-align: center;">
-      <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="Mehmet Kaya" style="width: 140px; height: 140px; border-radius: 50%; margin-bottom: 1rem; object-fit: cover; border: 3px solid #7e57c2;">
-      <h3 style="margin-bottom: 0.5rem;">Mehmet Kaya</h3>
-      <p style="color: #aaa; font-style: italic;">UX/UI Tasarımcısı</p>
-      <p style="font-size: 0.9rem; color: #ccc;">Mehmet, kullanıcı arayüzlerini tasarlayan ve uygulama deneyimini sürekli geliştiren yaratıcı bir tasarımcıdır.</p>
-    </div>
-  
-  </div>
-</section>
-
-<!-- Blog Bölümü -->
-<section id="blog" style="background: #111; color: #ddd; padding: 5rem 2rem;">
-  <h2 style="text-align: center; font-size: 2.8rem; margin-bottom: 3rem;">Blog</h2>
-  <div class="blog-posts" style="max-width: 1000px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); gap: 2rem;">
-    
-    <article class="blog-post" style="background: #222; border-radius: 10px; padding: 1.5rem; box-shadow: 0 0 20px #7e57c2;">
-      <h3 style="margin-bottom: 0.5rem;">Mobil Uygulama Geliştirme Trendleri 2025</h3>
-      <p style="font-size: 0.9rem; color: #bbb; margin-bottom: 1rem;">2025 yılında mobil uygulama dünyasında öne çıkan teknolojiler ve tasarım yaklaşımları üzerine detaylı analiz.</p>
-      <a href="#" style="color: #7e57c2; font-weight: bold; text-decoration: none;">Devamını Oku &rarr;</a>
-    </article>
-
-    <article class="blog-post" style="background: #222; border-radius: 10px; padding: 1.5rem; box-shadow: 0 0 20px #7e57c2;">
-      <h3 style="margin-bottom: 0.5rem;">Karanlık Mod Tasarımının Püf Noktaları</h3>
-      <p style="font-size: 0.9rem; color: #bbb; margin-bottom: 1rem;">Karanlık temalar neden popüler? Doğru kontrast ve renk seçimi nasıl yapılmalı? İşte uzman önerileri.</p>
-      <a href="#" style="color: #7e57c2; font-weight: bold; text-decoration: none;">Devamını Oku &rarr;</a>
-    </article>
-
-    <article class="blog-post" style="background: #222; border-radius: 10px; padding: 1.5rem; box-shadow: 0 0 20px #7e57c2;">
-      <h3 style="margin-bottom: 0.5rem;">Performans Optimizasyonu için İpuçları</h3>
-      <p style="font-size: 0.9rem; color: #bbb; margin-bottom: 1rem;">Uygulamalarınızın hızını ve performansını artırmak için dikkat etmeniz gereken temel noktalar.</p>
-      <a href="#" style="color: #7e57c2; font-weight: bold; text-decoration: none;">Devamını Oku &rarr;</a>
-    </article>
-
-  </div>
-</section>
-
-<!-- İletişim Formu (gelişmiş) -->
-<section id="contact-advanced" style="background: #000; color: #eee; padding: 5rem 2rem;">
-  <h2 style="text-align: center; font-size: 2.8rem; margin-bottom: 3rem;">Bize Ulaşın</h2>
-  <form id="contact-form" style="max-width: 600px; margin: auto; display: flex; flex-direction: column; gap: 1.5rem;">
-
-    <label for="name" style="font-weight: bold;">Adınız</label>
-    <input type="text" id="name" name="name" required placeholder="Adınızı giriniz" style="padding: 1rem; border-radius: 8px; border: none; background: #111; color: #eee; font-size: 1rem;">
-
-    <label for="email" style="font-weight: bold;">E-posta</label>
-    <input type="email" id="email" name="email" required placeholder="E-posta adresinizi giriniz" style="padding: 1rem; border-radius: 8px; border: none; background: #111; color: #eee; font-size: 1rem;">
-
-    <label for="subject" style="font-weight: bold;">Konu</label>
-    <input type="text" id="subject" name="subject" placeholder="Konu başlığını giriniz" style="padding: 1rem; border-radius: 8px; border: none; background: #111; color: #eee; font-size: 1rem;">
-
-    <label for="message" style="font-weight: bold;">Mesajınız</label>
-    <textarea id="message" name="message" rows="6" required placeholder="Mesajınızı yazınız" style="padding: 1rem; border-radius: 8px; border: none; background: #111; color: #eee; font-size: 1rem; resize: vertical;"></textarea>
-
-    <button type="submit" style="padding: 1rem; background: #7e57c2; border: none; color: white; font-weight: bold; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: background 0.3s ease;">
-      Gönder
-    </button>
-
-    <p id="form-response" style="margin-top: 1rem; color: #a5d6a7; display: none;"></p>
-  </form>
-</section>
-
-<script>
-  // Gelişmiş iletişim formu gönderme simülasyonu
-  const contactForm = document.getElementById('contact-form');
-  const formResponse = document.getElementById('form-response');
-
-  contactForm.addEventListener('submit', e => {
-    e.preventDefault();
-    formResponse.style.display = 'none';
-    const name = contactForm.name.value.trim();
-    const email = contactForm.email.value.trim();
-    const message = contactForm.message.value.trim();
-
-    if(name === "" || email === "" || message === ""){
-      formResponse.style.color = 'tomato';
-      formResponse.textContent = "Lütfen zorunlu alanları doldurunuz.";
-      formResponse.style.display = 'block';
-      return;
-    }
-
-    // Basit e-posta format kontrolü
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailRegex.test(email)){
-      formResponse.style.color = 'tomato';
-      formResponse.textContent = "Geçerli bir e-posta giriniz.";
-      formResponse.style.display = 'block';
-      return;
-    }
-
-    // Simüle edilen gönderme işlemi
-    formResponse.style.color = '#a5d6a7';
-    formResponse.textContent = "Mesajınız gönderildi. En kısa sürede dönüş yapacağız.";
-    formResponse.style.display = 'block';
-
-    contactForm.reset();
-  });
-</script>
-
-<!-- Footer -->
-<footer style="background: #111; color: #777; padding: 2rem 1rem; text-align: center; font-size: 0.9rem; border-top: 1px solid #444;">
-  <p>&copy; 2025 Jetskig. Tüm hakları saklıdır.</p>
-  <p>
-    <a href="#home" style="color: #7e57c2; text-decoration: none; margin: 0 0.5rem;">Anasayfa</a> |
-    <a href="#gallery" style="color: #7e57c2; text-decoration: none; margin: 0 0.5rem;">Galeri</a> |
-    <a href="#team" style="color: #7e57c2; text-decoration: none; margin: 0 0.5rem;">Ekibimiz</a> |
-    <a href="#blog" style="color: #7e57c2; text-decoration: none; margin: 0 0.5rem;">Blog</a> |
-    <a href="#contact-advanced" style="color: #7e57c2; text-decoration: none; margin: 0 0.5rem;">İletişim</a>
-  </p>
-</footer>
-<!-- Galeri Bölümü -->
-<section id="gallery" style="padding: 4rem 2rem; background: #111;">
-  <h2 style="text-align:center; font-size:2rem; margin-bottom:2rem;">Galeri</h2>
-  <div class="gallery-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap: 1rem; max-width: 1200px; margin:auto;">
-    <div class="gallery-item" style="flex:1 1 250px; max-width: 250px;">
-      <img src="https://picsum.photos/id/1015/400/300" alt="Jetski 1" style="width:100%; border-radius:10px; cursor:pointer;">
-    </div>
-    <div class="gallery-item" style="flex:1 1 250px; max-width: 250px;">
-      <img src="https://picsum.photos/id/1025/400/300" alt="Jetski 2" style="width:100%; border-radius:10px; cursor:pointer;">
-    </div>
-    <div class="gallery-item" style="flex:1 1 250px; max-width: 250px;">
-      <img src="https://picsum.photos/id/1035/400/300" alt="Jetski 3" style="width:100%; border-radius:10px; cursor:pointer;">
-    </div>
-  </div>
-</section>
-
-<!-- Blog Bölümü -->
-<section id="blog" style="padding: 4rem 2rem; background: #000;">
-  <h2 style="text-align:center; font-size:2rem; margin-bottom:2rem; color:#ccc;">Blog Yazıları</h2>
-  <div style="max-width:900px; margin:auto; display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-    <article class="blog-post" style="background:#1a1a1a; padding:1.5rem; border-radius:8px; cursor:pointer;">
-      <h3 style="margin-bottom:0.8rem;">Mobil Uygulama Geliştirmenin Geleceği</h3>
-      <p style="color:#bbb; font-size:0.95rem; line-height:1.5;">
-        Günümüzde mobil uygulamalar, hayatımızın her alanına nüfuz ediyor. Jetskig olarak, yenilikçi ve kullanıcı dostu uygulamalar geliştiriyoruz...
-      </p>
-      <a href="#" style="color:#888; font-size:0.9rem; text-decoration:none;">Devamını oku →</a>
-    </article>
-    <article class="blog-post" style="background:#1a1a1a; padding:1.5rem; border-radius:8px; cursor:pointer;">
-      <h3 style="margin-bottom:0.8rem;">Karanlık Tema Tasarımının Avantajları</h3>
-      <p style="color:#bbb; font-size:0.95rem; line-height:1.5;">
-        Karanlık tema, kullanıcıların gözünü yormadan uzun süre kullanım imkanı sağlar. Jetskig projelerinde bu tasarım tercihini önemsiyoruz...
-      </p>
-      <a href="#" style="color:#888; font-size:0.9rem; text-decoration:none;">Devamını oku →</a>
-    </article>
-  </div>
-</section>
-
-<!-- İletişim Formu Geliştirmesi -->
-<section id="contact" style="padding: 4rem 2rem; background: #111;">
-  <h2 style="text-align:center; font-size:2rem; margin-bottom:2rem;">İletişim</h2>
-  <form id="contactForm" style="max-width:600px; margin:auto; display:flex; flex-direction:column; gap:1rem;">
-    <input type="text" id="name" placeholder="Adınız" required style="padding:1rem; background:#222; border:none; color:#fff; border-radius:5px;">
-    <input type="email" id="email" placeholder="E-posta" required style="padding:1rem; background:#222; border:none; color:#fff; border-radius:5px;">
-    <textarea id="message" placeholder="Mesajınız" rows="5" required style="padding:1rem; background:#222; border:none; color:#fff; border-radius:5px;"></textarea>
-    <button type="submit" style="padding:1rem; background:#6136b4; color:#fff; font-weight:bold; border:none; border-radius:5px; cursor:pointer; transition: background 0.3s ease;">Gönder</button>
-    <p id="formStatus" style="color:#ccc; font-size:0.9rem; margin-top:0.5rem;"></p>
-  </form>
-</section>
-
-<script>
-  // İletişim formu gönderim işlemi (demo amaçlı)
-  const form = document.getElementById('contactForm');
-  const formStatus = document.getElementById('formStatus');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    formStatus.textContent = 'Mesajınız gönderiliyor...';
-    setTimeout(() => {
-      formStatus.textContent = 'Mesajınız başarıyla gönderildi. Teşekkürler!';
-      form.reset();
-    }, 1500);
-  });
-</script>
