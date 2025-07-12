@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Jetskig Uygulamaları</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/username/repo/main/image2.png" type="image/png">
   <style>
     /* Genel Reset ve Temel Ayarlar */
     *, *::before, *::after {
@@ -29,7 +30,7 @@
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      background: #111;
+      background: rgba(17, 17, 17, 0.95);
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -38,6 +39,7 @@
       z-index: 1000;
       box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
       user-select: none;
+      backdrop-filter: blur(10px);
     }
     .logo {
       font-size: 1.8rem;
@@ -46,6 +48,13 @@
       text-transform: uppercase;
       color: #fff;
       transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo img {
+      width: 30px;
+      height: 30px;
     }
     .logo:hover {
       color: #aaa;
@@ -86,6 +95,20 @@
       border-bottom: 1px solid #222;
       user-select: none;
       text-transform: uppercase;
+      background: linear-gradient(90deg, #000, #222, #000);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://raw.githubusercontent.com/username/repo/main/image2.png') center/cover no-repeat;
+      opacity: 0.1;
+      z-index: -1;
     }
 
     /* Animasyonlu Arka Plan */
@@ -97,7 +120,7 @@
         repeating-radial-gradient(circle at center, #222 0, #111 5px, #222 10px),
         linear-gradient(90deg, #111 0%, #000 100%);
       opacity: 0.2;
-      z-index: -1;
+      z-index: -2;
       animation: bgWave 20s linear infinite;
     }
     @keyframes bgWave {
@@ -128,9 +151,41 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      transition: all 0.4s ease;
       position: relative;
       user-select: none;
+      overflow: hidden;
+    }
+    .app-card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(45deg);
+      transition: all 0.6s ease;
+      opacity: 0;
+    }
+    .app-card:hover::before {
+      animation: shine 1.5s;
+      opacity: 1;
+    }
+    @keyframes shine {
+      0% {
+        left: -50%;
+        top: -50%;
+      }
+      100% {
+        left: 150%;
+        top: 150%;
+      }
     }
     .app-card:hover {
       transform: scale(1.05) rotate(1deg);
@@ -145,6 +200,21 @@
       margin-bottom: 1rem;
       letter-spacing: 1px;
       text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+    }
+    .app-card h2::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: #fff;
+      transition: width 0.3s ease;
+    }
+    .app-card:hover h2::after {
+      width: 100%;
     }
 
     .app-card p {
@@ -166,13 +236,31 @@
       margin-top: 1.8rem;
       cursor: pointer;
       box-shadow: 0 0 12px #fff;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      transition: all 0.3s ease;
       align-self: center;
       user-select: none;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .get-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background-color: #000;
+      transition: width 0.3s ease;
+      z-index: -1;
     }
     .get-button:hover {
-      background-color: #ddd;
+      background-color: transparent;
+      color: #fff;
       transform: scale(1.05);
+    }
+    .get-button:hover::before {
+      width: 100%;
     }
     .get-button:active {
       transform: scale(0.95);
@@ -186,6 +274,18 @@
       border-top: 1px solid #222;
       border-bottom: 1px solid #222;
       user-select: none;
+      position: relative;
+    }
+    #about::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://raw.githubusercontent.com/username/repo/main/image2.png') center/cover no-repeat;
+      opacity: 0.05;
+      z-index: 0;
     }
     #about h2 {
       font-size: 2.5rem;
@@ -193,6 +293,8 @@
       margin-bottom: 1.8rem;
       letter-spacing: 2px;
       text-transform: uppercase;
+      position: relative;
+      z-index: 1;
     }
     #about p {
       max-width: 850px;
@@ -201,6 +303,8 @@
       line-height: 1.9;
       color: #ccc;
       user-select: text;
+      position: relative;
+      z-index: 1;
     }
 
     /* SVG İkonlar - Hakkımızda İçin */
@@ -210,6 +314,8 @@
       gap: 3rem;
       margin-top: 3rem;
       user-select: none;
+      position: relative;
+      z-index: 1;
     }
     .icon-box {
       width: 90px;
@@ -219,11 +325,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: border-color 0.3s ease;
+      transition: all 0.3s ease;
       cursor: default;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
     }
     .icon-box:hover {
       border-color: #fff;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
     svg {
       fill: #ccc;
@@ -263,14 +373,17 @@
       color: #eee;
       font-size: 1.1rem;
       resize: none;
-      transition: background-color 0.3s ease;
-    }
-    input::placeholder, textarea::placeholder {
-      color: #777;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
     }
     input:focus, textarea:focus {
       outline: none;
       background-color: #333;
+      border-color: #fff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    input::placeholder, textarea::placeholder {
+      color: #777;
     }
     button[type="submit"] {
       padding: 1rem;
@@ -281,12 +394,28 @@
       font-weight: 800;
       font-size: 1.2rem;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      transition: all 0.3s ease;
       user-select: none;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    button[type="submit"]::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: #000;
+      transition: width 0.3s ease;
+      z-index: -1;
     }
     button[type="submit"]:hover {
-      background-color: #ddd;
-      transform: scale(1.05);
+      color: #fff;
+    }
+    button[type="submit"]:hover::before {
+      width: 100%;
     }
     button[type="submit"]:active {
       transform: scale(0.95);
@@ -312,57 +441,38 @@
       color: #eee;
       border-radius: 8px;
       border: none;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
     }
     .captcha input:focus {
       outline: none;
       background-color: #333;
-    }
-
-    /* Footer */
-    footer {
-      padding: 2.5rem 1rem;
-      background: #111;
-      text-align: center;
-      color: #777;
-      font-size: 1rem;
-      border-top: 1px solid #222;
-      user-select: none;
-    }
-    footer .socials {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-    }
-    footer .socials a {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      filter: grayscale(100%);
-      transition: filter 0.3s ease;
-    }
-    footer .socials a:hover {
-      filter: grayscale(0%);
-    }
-    footer .socials svg {
-      fill: #777;
-      width: 30px;
-      height: 30px;
-    }
-    footer .socials a:hover svg {
-      fill: #fff;
+      border: 1px solid #fff;
     }
 
     /* Ekibimiz Bölümü */
     #team {
       background: #000;
-      padding: 4rem 2rem;
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #team::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://raw.githubusercontent.com/username/repo/main/image2.png') center/cover no-repeat;
+      opacity: 0.05;
+      z-index: 0;
     }
     #team h2 {
       text-align: center;
       font-size: 2.5rem;
       margin-bottom: 3rem;
+      position: relative;
+      z-index: 1;
     }
     .team-container {
       display: flex;
@@ -371,17 +481,24 @@
       gap: 3rem;
       max-width: 1200px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
     .team-member {
-      background: #1a1a1a;
+      background: rgba(26, 26, 26, 0.8);
       border-radius: 12px;
       padding: 2rem;
       width: 280px;
       text-align: center;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      border: 1px solid #333;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
     .team-member:hover {
       transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      border-color: #fff;
     }
     .team-member img {
       width: 150px;
@@ -390,17 +507,143 @@
       object-fit: cover;
       border: 3px solid #fff;
       margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+    .team-member:hover img {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     }
     .team-member h3 {
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
+      color: #fff;
     }
     .team-member p {
       color: #ccc;
+      font-size: 1rem;
+    }
+
+    /* İstatistikler Bölümü */
+    #stats {
+      background: #111;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    #stats h2 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .stats-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .stat-item {
+      flex: 1 1 200px;
+      padding: 2rem;
+      background: #1a1a1a;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    .stat-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 1rem;
+      background: #111;
+      text-align: center;
+      color: #777;
+      font-size: 1rem;
+      border-top: 1px solid #222;
+      user-select: none;
+      position: relative;
+    }
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #fff, transparent);
+    }
+    footer .socials {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    footer .socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #222;
+      transition: all 0.3s ease;
+    }
+    footer .socials a:hover {
+      background: #fff;
+      transform: translateY(-3px);
+    }
+    footer .socials a:hover svg {
+      fill: #000;
+    }
+    footer .socials svg {
+      fill: #777;
+      width: 20px;
+      height: 20px;
+      transition: all 0.3s ease;
+    }
+    .copyright {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #111;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
     }
 
     /* Responsive */
-    @media (max-width: 720px) {
+    @media (max-width: 1024px) {
+      header {
+        font-size: 2.5rem;
+      }
+      #apps {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
       nav ul {
         gap: 1rem;
       }
@@ -408,13 +651,44 @@
         font-size: 2rem;
         padding: 2rem 1rem 3rem;
       }
-      #apps {
-        grid-template-columns: 1fr;
-        padding: 2rem 1rem 4rem;
+      #about h2, #contact h2, #team h2 {
+        font-size: 2rem;
+      }
+      .icons-container {
+        flex-wrap: wrap;
+        gap: 1.5rem;
       }
       .team-container {
         flex-direction: column;
         align-items: center;
+      }
+      .team-member {
+        width: 100%;
+        max-width: 350px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      nav ul {
+        margin-top: 1rem;
+      }
+      header {
+        font-size: 1.8rem;
+        padding: 1.5rem 1rem;
+      }
+      .app-card {
+        padding: 1.5rem;
+      }
+      .app-card h2 {
+        font-size: 1.5rem;
+      }
+      .get-button {
+        padding: 0.7rem 1.2rem;
+        font-size: 1rem;
       }
     }
   </style>
@@ -422,45 +696,53 @@
 <body>
 
   <nav>
-    <div class="logo">Jetskig</div>
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/username/repo/main/image2.png" alt="Jetskig Logo">
+      <span>Jetskig</span>
+    </div>
     <ul>
       <li class="active"><a href="#apps">Uygulamalar</a></li>
       <li><a href="#about">Hakkımızda</a></li>
+      <li><a href="#team">Ekibimiz</a></li>
       <li><a href="#contact">İletişim</a></li>
     </ul>
   </nav>
 
-  <header>J E T S K I G &nbsp;&nbsp; UYGULAMALAR</header>
+  <header>
+    <div class="header-content">
+      J E T S K I G &nbsp;&nbsp; UYGULAMALAR
+    </div>
+  </header>
 
   <section id="apps" aria-label="Uygulamalarımız">
     <!-- Uygulama Kartları -->
     <article class="app-card" tabindex="0">
-      <h2>Uygulama Adı 1</h2>
-      <p>Bu uygulama karanlık tema için özel optimize edilmiştir. Güçlü, sade ve etkileyici kullanıcı deneyimi sunar.</p>
+      <h2>JetSpeed</h2>
+      <p>Hızlı ve güvenli dosya transferi için geliştirilmiş premium uygulama. Büyük dosyaları saniyeler içinde gönderin.</p>
       <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
     </article>
 
     <article class="app-card" tabindex="0">
-      <h2>Uygulama Adı 2</h2>
-      <p>Basit, hızlı ve güvenilir performans ile kullanıcıların beğenisini kazanmıştır.</p>
+      <h2>DarkNote</h2>
+      <p>Karanlık tema optimizasyonlu not alma uygulaması. Tüm cihazlarınızda senkronize çalışır.</p>
       <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
     </article>
 
     <article class="app-card" tabindex="0">
-      <h2>Uygulama Adı 3</h2>
-      <p>Modern tasarımı ve kullanıcı dostu arayüzü ile ön plana çıkar.</p>
+      <h2>SecureVault</h2>
+      <p>Şifrelerinizi ve önemli bilgilerinizi güvenle saklayın. Biyometrik giriş desteği ile.</p>
       <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
     </article>
 
     <article class="app-card" tabindex="0">
-      <h2>Uygulama Adı 4</h2>
-      <p>Yenilikçi özellikleri sayesinde sektöründe fark yaratır.</p>
+      <h2>TaskFlow</h2>
+      <p>Üretkenliğinizi artıracak akıllı görev yöneticisi. Projelerinizi kolayca yönetin.</p>
       <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
     </article>
 
     <article class="app-card" tabindex="0">
-      <h2>Uygulama Adı 5</h2>
-      <p>Kullanıcı geri bildirimleriyle sürekli geliştirilen güçlü bir platform.</p>
+      <h2>SleepWave</h2>
+      <p>Uyku kalitenizi artıran özel sesler ve meditasyon uygulaması. Rahat bir uyku için.</p>
       <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
     </article>
   </section>
@@ -468,8 +750,9 @@
   <section id="about" aria-label="Hakkımızda">
     <h2>Hakkımızda</h2>
     <p>
-      Jetskig, kullanıcıların hayatlarını kolaylaştıran sade ve işlevsel uygulamalar geliştirir. 
-      Siyah-beyaz temamızla modern ve şık bir deneyim sunuyoruz.
+      Jetskig, 2020 yılında kurulmuş bir mobil uygulama geliştirme şirketidir. Kullanıcı deneyimini ön planda tutan, 
+      minimalist tasarımlı ve yüksek performanslı uygulamalar geliştiriyoruz. Özellikle karanlık tema konusunda 
+      uzmanlaşmış ekibimiz, göz yormayan arayüzler tasarlamak için özen gösteriyor.
     </p>
     <div class="icons-container" role="img" aria-label="Hakkımızda ikonları">
       <div class="icon-box" title="E-posta">
@@ -490,21 +773,43 @@
     </div>
   </section>
 
+  <section id="stats">
+    <h2>İstatistiklerimiz</h2>
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Mutlu Kullanıcı</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Uygulama</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">4.9</div>
+        <div class="stat-label">Ortalama Puan</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Destek</div>
+      </div>
+    </div>
+  </section>
+
   <section id="team">
     <h2>Ekibimiz</h2>
     <div class="team-container">
       <div class="team-member">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Hakan">
+        <img src="https://raw.githubusercontent.com/username/repo/main/image1.png" alt="Hakan">
         <h3>Hakan</h3>
         <p>Kurucu & CEO</p>
       </div>
       <div class="team-member">
-        <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Hakan">
+        <img src="https://raw.githubusercontent.com/username/repo/main/image1.png" alt="Hakan">
         <h3>Hakan</h3>
         <p>Baş Yazılımcı</p>
       </div>
       <div class="team-member">
-        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Hakan">
+        <img src="https://raw.githubusercontent.com/username/repo/main/image1.png" alt="Hakan">
         <h3>Hakan</h3>
         <p>UX/UI Tasarımcısı</p>
       </div>
@@ -528,17 +833,26 @@
   </section>
 
   <footer>
-    &copy; 2025 Jetskig Tüm Hakları Saklıdır.
-    <div class="socials" aria-label="Sosyal Medya">
-      <a href="https://twitter.com/jetskig" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-        <svg viewBox="0 0 24 24"><path d="M23.954 4.569a10 10 0 01-2.825.775 4.932 4.932 0 002.163-2.724 9.86 9.86 0 01-3.127 1.195 4.916 4.916 0 00-8.372 4.482 13.93 13.93 0 01-10.11-5.138 4.822 4.822 0 001.523 6.574 4.9 4.9 0 01-2.228-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.085 4.922 4.922 0 004.6 3.417A9.867 9.867 0 012 19.54a13.905 13.905 0 007.548 2.212c9.142 0 14.307-7.721 13.995-14.646a9.936 9.936 0 002.411-2.535z"/></svg>
-      </a>
-      <a href="https://linkedin.com/company/jetskig" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.238-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.762-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.025-3.06-1.867-3.06-1.867 0-2.153 1.458-2.153 2.963v5.701h-3v-10h2.881v1.367h.041c.401-.758 1.379-1.557 2.838-1.557 3.035 0 3.594 2 3.594 4.59v5.6z"/></svg>
-      </a>
-      <a href="https://github.com/jetskig" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.087-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.334-5.466-5.93 0-1.31.467-2.38 1.235-3.22-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.5 11.5 0 013.003-.404c1.02.005 2.045.138 3.003.404 2.292-1.552 3.298-1.23 3.298-1.23.655 1.653.243 2.873.119 3.176.77.84 1.235 1.91 1.235 3.22 0 4.61-2.807 5.62-5.479 5.92.43.372.823 1.102.823 2.222v3.293c0 .319.217.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12z"/></svg>
-      </a>
+    <div class="footer-content">
+      <div class="logo">
+        <img src="https://raw.githubusercontent.com/username/repo/main/image2.png" alt="Jetskig Logo">
+        <span>Jetskig</span>
+      </div>
+      <p>Hayatınızı kolaylaştıran uygulamalar</p>
+      <div class="socials">
+        <a href="https://twitter.com/jetskig" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+          <svg viewBox="0 0 24 24"><path d="M23.954 4.569a10 10 0 01-2.825.775 4.932 4.932 0 002.163-2.724 9.86 9.86 0 01-3.127 1.195 4.916 4.916 0 00-8.372 4.482 13.93 13.93 0 01-10.11-5.138 4.822 4.822 0 001.523 6.574 4.9 4.9 0 01-2.228-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.085 4.922 4.922 0 004.6 3.417A9.867 9.867 0 012 19.54a13.905 13.905 0 007.548 2.212c9.142 0 14.307-7.721 13.995-14.646a9.936 9.936 0 002.411-2.535z"/></svg>
+        </a>
+        <a href="https://linkedin.com/company/jetskig" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.238-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.762-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.025-3.06-1.867-3.06-1.867 0-2.153 1.458-2.153 2.963v5.701h-3v-10h2.881v1.367h.041c.401-.758 1.379-1.557 2.838-1.557 3.035 0 3.594 2 3.594 4.59v5.6z"/></svg>
+        </a>
+        <a href="https://github.com/jetskig" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.087-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.334-5.466-5.93 0-1.31.467-2.38 1.235-3.22-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.5 11.5 0 013.003-.404c1.02.005 2.045.138 3.003.404 2.292-1.552 3.298-1.23 3.298-1.23.655 1.653.243 2.873.119 3.176.77.84 1.235 1.91 1.235 3.22 0 4.61-2.807 5.62-5.479 5.92.43.372.823 1.102.823 2.222v3.293c0 .319.217.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Jetskig. Tüm hakları saklıdır.
+      </div>
     </div>
   </footer>
 
@@ -547,15 +861,35 @@
     function generateCaptcha() {
       const num1 = Math.floor(Math.random() * 5) + 1;
       const num2 = Math.floor(Math.random() * 5) + 1;
-      document.getElementById('captchaQuestion').textContent = `${num1} + ${num2} = ?`;
-      sessionStorage.setItem('captchaAnswer', num1 + num2);
+      const operators = ['+', '-', '*'];
+      const operator = operators[Math.floor(Math.random() * operators.length)];
+      
+      let question, answer;
+      
+      switch(operator) {
+        case '+':
+          question = `${num1} + ${num2} = ?`;
+          answer = num1 + num2;
+          break;
+        case '-':
+          question = `${num1 + num2} - ${num1} = ?`;
+          answer = num2;
+          break;
+        case '*':
+          question = `${num1} × ${num2} = ?`;
+          answer = num1 * num2;
+          break;
+      }
+      
+      document.getElementById('captchaQuestion').textContent = question;
+      sessionStorage.setItem('captchaAnswer', answer);
     }
 
     // Form gönderim işlemi
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       
-      const userAnswer = document.getElementById('captchaAnswer').value;
+      const userAnswer = document.getElementById('captchaAnswer').value.trim();
       const correctAnswer = sessionStorage.getItem('captchaAnswer');
       
       if(userAnswer !== correctAnswer) {
@@ -564,13 +898,51 @@
         return;
       }
       
-      alert('Mesajınız iletildi!');
+      // E-posta doğrulama
+      const email = document.getElementById('email').value;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if(!emailRegex.test(email)) {
+        alert('Lütfen geçerli bir e-posta adresi girin!');
+        return;
+      }
+      
+      alert('Mesajınız iletildi! En kısa sürede dönüş yapacağız.');
       this.reset();
       generateCaptcha();
     });
 
     // Sayfa yüklendiğinde CAPTCHA oluştur
-    document.addEventListener('DOMContentLoaded', generateCaptcha);
+    document.addEventListener('DOMContentLoaded', function() {
+      generateCaptcha();
+      
+      // Scroll animasyonları
+      const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.app-card, .team-member, .stat-item');
+        
+        elements.forEach(element => {
+          const elementPosition = element.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          
+          if(elementPosition < windowHeight - 100) {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+          }
+        });
+      };
+      
+      // İlk yüklemede animasyonları tetikle
+      document.querySelectorAll('.app-card, .team-member, .stat-item').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.6s ease';
+      });
+      
+      setTimeout(animateOnScroll, 300);
+      
+      // Scroll event listener
+      window.addEventListener('scroll', animateOnScroll);
+    });
   </script>
 </body>
 </html>
