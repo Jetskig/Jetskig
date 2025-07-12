@@ -584,173 +584,7 @@ nav.scrolled {
       letter-spacing: 1px;
     }
     
-  <!-- Ekibimiz Bölümü -->
-<section class="section" id="team">
-  <div class="container">
-    <h2 class="section-title">Ekibimiz</h2>
-    
-    <div class="team-grid">
-      <!-- 1. Ekip Üyesi -->
-      <div class="team-member">
-        <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
-        <h3 class="member-name">Hakan</h3>
-        <span class="member-role">Kurucu & CEO</span>
-        <p class="member-bio">10+ yıllık yazılım deneyimiyle Jetskig'in vizyoner lideri.</p>
-        <div class="member-social">
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-          <a href="#"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-      
-      <!-- 2. Ekip Üyesi -->
-      <div class="team-member">
-        <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
-        <h3 class="member-name">Hakan</h3>
-        <span class="member-role">Baş Yazılımcı</span>
-        <p class="member-bio">Mobil teknolojiler konusunda uzman, full-stack geliştirici.</p>
-        <div class="member-social">
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-          <a href="#"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-      
-      <!-- 3. Ekip Üyesi -->
-      <div class="team-member">
-        <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
-        <h3 class="member-name">Hakan</h3>
-        <span class="member-role">UX/UI Tasarımcısı</span>
-        <p class="member-bio">Kullanıcı deneyimi odaklı, minimalist tasarımların yaratıcısı.</p>
-        <div class="member-social">
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-          <a href="#"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-      
-      <!-- 4. Ekip Üyesi -->
-      <div class="team-member">
-        <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
-        <h3 class="member-name">Hakan</h3>
-        <span class="member-role">Pazarlama Müdürü</span>
-        <p class="member-bio">Marka bilinirliği ve kullanıcı edinme stratejileri uzmanı.</p>
-        <div class="member-social">
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-          <a href="#"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-/* Ekibimiz Bölümü */
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.team-member {
-  background: var(--card-bg);
-  border-radius: 15px;
-  padding: 2rem;
-  text-align: center;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255,255,255,0.1);
-  animation: borderGlow 3s infinite ease;
-}
-
-.team-member::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background: var(--primary-color);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-  box-shadow: 0 0 10px var(--glow-color);
-}
-
-.team-member:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-  animation: none;
-}
-
-.team-member:hover::before {
-  transform: scaleX(1);
-}
-
-.member-img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid rgba(255,255,255,0.1);
-  margin: 0 auto 1.5rem;
-  transition: all 0.3s ease;
-  filter: grayscale(30%) contrast(110%);
-}
-
-.team-member:hover .member-img {
-  border-color: rgba(255,255,255,0.5);
-  transform: scale(1.05);
-  filter: grayscale(0%) contrast(120%);
-}
-
-.member-name {
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 0 10px var(--glow-color);
-}
-
-.member-role {
-  color: var(--primary-color);
-  font-weight: 600;
-  margin-bottom: 1rem;
-  display: block;
-  text-shadow: 0 0 5px var(--glow-color);
-}
-
-.member-bio {
-  color: var(--text-gray);
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-}
-
-.member-social {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.member-social a {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background: #333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 5px var(--glow-color);
-}
-
-.member-social a:hover {
-  background: var(--primary-color);
-  transform: translateY(-3px);
-  box-shadow: 0 0 15px var(--glow-color);
-}
-</style>
+ 
     /* İletişim Bölümü */
     .contact-container {
       display: grid;
@@ -1873,7 +1707,173 @@ nav.scrolled {
             <li><a href="#contact">İletişim</a></li>
           </ul>
         </div>
-        
+         <!-- Ekibimiz Bölümü -->
+<section class="section" id="team">
+  <div class="container">
+    <h2 class="section-title">Ekibimiz</h2>
+    
+    <div class="team-grid">
+      <!-- 1. Ekip Üyesi -->
+      <div class="team-member">
+        <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
+        <h3 class="member-name">Hakan</h3>
+        <span class="member-role">Kurucu & CEO</span>
+        <p class="member-bio">10+ yıllık yazılım deneyimiyle Jetskig'in vizyoner lideri.</p>
+        <div class="member-social">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+      
+      <!-- 2. Ekip Üyesi -->
+      <div class="team-member">
+        <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
+        <h3 class="member-name">Hakan</h3>
+        <span class="member-role">Baş Yazılımcı</span>
+        <p class="member-bio">Mobil teknolojiler konusunda uzman, full-stack geliştirici.</p>
+        <div class="member-social">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+      
+      <!-- 3. Ekip Üyesi -->
+      <div class="team-member">
+        <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
+        <h3 class="member-name">Hakan</h3>
+        <span class="member-role">UX/UI Tasarımcısı</span>
+        <p class="member-bio">Kullanıcı deneyimi odaklı, minimalist tasarımların yaratıcısı.</p>
+        <div class="member-social">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+      
+      <!-- 4. Ekip Üyesi -->
+      <div class="team-member">
+        <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
+        <h3 class="member-name">Hakan</h3>
+        <span class="member-role">Pazarlama Müdürü</span>
+        <p class="member-bio">Marka bilinirliği ve kullanıcı edinme stratejileri uzmanı.</p>
+        <div class="member-social">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Ekibimiz Bölümü */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.team-member {
+  background: var(--card-bg);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255,255,255,0.1);
+  animation: borderGlow 3s infinite ease;
+}
+
+.team-member::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--primary-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 10px var(--glow-color);
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  animation: none;
+}
+
+.team-member:hover::before {
+  transform: scaleX(1);
+}
+
+.member-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid rgba(255,255,255,0.1);
+  margin: 0 auto 1.5rem;
+  transition: all 0.3s ease;
+  filter: grayscale(30%) contrast(110%);
+}
+
+.team-member:hover .member-img {
+  border-color: rgba(255,255,255,0.5);
+  transform: scale(1.05);
+  filter: grayscale(0%) contrast(120%);
+}
+
+.member-name {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px var(--glow-color);
+}
+
+.member-role {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: block;
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+.member-bio {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.member-social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.member-social a {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px var(--glow-color);
+}
+
+.member-social a:hover {
+  background: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+</style>
         <div class="footer-col">
           <h3>İletişim</h3>
           <ul class="footer-contact">
