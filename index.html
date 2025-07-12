@@ -3,34 +3,182 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Jetskig - Premium mobil uygulamalar geliştiriyoruz">
+  <meta name="keywords" content="mobil uygulama, android, karanlık tema, uygulama geliştirme">
   <title>Jetskig Uygulamaları</title>
   <link rel="icon" href="https://raw.githubusercontent.com/username/repo/main/image2.png" type="image/png">
   <style>
     /* Genel Reset ve Temel Ayarlar */
-    *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    :root {
+      --primary-color: #7e57c2;
+      --secondary-color: #5e35b1;
+      --dark-bg: #000;
+      --darker-bg: #111;
+      --card-bg: #1a1a1a;
+      --text-light: #fff;
+      --text-gray: #ccc;
+      --text-dark: #333;
+      --accent-color: #ff5722;
+      --success-color: #4caf50;
     }
+    
+    *, *::before, *::after {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 400;
+      src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    }
+    
     html, body {
-      background: #000;
-      color: #fff;
+      background: var(--dark-bg);
+      color: var(--text-light);
       scroll-behavior: smooth;
       overflow-x: hidden;
+      line-height: 1.6;
+      font-size: 16px;
     }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    
     a {
       color: inherit;
       text-decoration: none;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
+    
     a:hover {
-      color: #bbb;
+      color: var(--primary-color);
     }
-
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    /* Buton Stilleri */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 15px rgba(126, 87, 194, 0.3);
+    }
+    
+    .btn-primary:hover {
+      background: var(--secondary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(126, 87, 194, 0.4);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: var(--text-light);
+      border: 2px solid var(--primary-color);
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+    
+    /* Özel Animasyonlar */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+      }
+    }
+    
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 5px var(--primary-color);
+      }
+      100% {
+        box-shadow: 0 0 20px var(--primary-color);
+      }
+    }
+    
     /* Sayfa Layout */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    .section {
+      padding: 5rem 0;
+      position: relative;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    /* Navigation */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      background: rgba(17, 17, 17, 0.95);
+      top: 0; 
+      left: 0; 
+      right: 0;
+      background: rgba(17, 17, 17, 0.98);
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -40,824 +188,1652 @@
       box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
       user-select: none;
       backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
     }
+    
+    nav.scrolled {
+      padding: 0.5rem 2rem;
+      background: rgba(0, 0, 0, 0.95);
+    }
+    
     .logo {
       font-size: 1.8rem;
       font-weight: 900;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #fff;
-      transition: color 0.3s ease;
+      color: var(--text-light);
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
+    
     .logo img {
       width: 30px;
       height: 30px;
+      transition: all 0.3s ease;
     }
+    
     .logo:hover {
-      color: #aaa;
+      color: var(--primary-color);
     }
-    nav ul {
+    
+    .logo:hover img {
+      transform: rotate(15deg);
+    }
+    
+    .nav-links {
       display: flex;
       list-style: none;
       gap: 2rem;
     }
-    nav ul li {
-      font-weight: 600;
-      font-size: 1.1rem;
+    
+    .nav-links li {
       position: relative;
     }
-    nav ul li::after {
+    
+    .nav-links a {
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.5rem 0;
+    }
+    
+    .nav-links li::after {
       content: '';
       position: absolute;
-      bottom: -6px;
+      bottom: 0;
       left: 0;
       width: 0;
       height: 2px;
-      background: #fff;
+      background: var(--primary-color);
       transition: width 0.3s ease;
-      border-radius: 2px;
     }
-    nav ul li:hover::after,
-    nav ul li.active::after {
+    
+    .nav-links li:hover::after,
+    .nav-links li.active::after {
       width: 100%;
     }
-
-    header {
-      margin-top: 80px;
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      min-height: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      font-size: 3rem;
-      font-weight: 900;
-      letter-spacing: 3px;
-      padding: 3rem 1rem 4rem;
-      border-bottom: 1px solid #222;
-      user-select: none;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, #000, #222, #000);
       position: relative;
       overflow: hidden;
+      padding-top: 80px;
     }
-    header::before {
+    
+    .hero::before {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: url('https://raw.githubusercontent.com/username/repo/main/image2.png') center/cover no-repeat;
-      opacity: 0.1;
+      background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(126,87,194,0.2) 100%);
       z-index: -1;
     }
-
-    /* Animasyonlu Arka Plan */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background:
-        repeating-radial-gradient(circle at center, #222 0, #111 5px, #222 10px),
-        linear-gradient(90deg, #111 0%, #000 100%);
-      opacity: 0.2;
+    
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       z-index: -2;
-      animation: bgWave 20s linear infinite;
+      opacity: 0.3;
     }
-    @keyframes bgWave {
-      0% {
-        background-position: 0 0, 0 0;
+    
+    .hero-content {
+      max-width: 800px;
+      padding: 0 1rem;
+    }
+    
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      line-height: 1.1;
+      animation: fadeInDown 1s ease;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: var(--text-gray);
+      animation: fadeInUp 1s ease 0.3s forwards;
+      opacity: 0;
+    }
+    
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      animation: fadeInUp 1s ease 0.6s forwards;
+      opacity: 0;
+    }
+    
+    .scroll-down {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1.5rem;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
       }
-      100% {
-        background-position: 200px 0, 0 200px;
+      40% {
+        transform: translateY(-20px) translateX(-50%);
+      }
+      60% {
+        transform: translateY(-10px) translateX(-50%);
       }
     }
-
+    
     /* Uygulamalar Bölümü */
-    #apps {
+    .apps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
-      padding: 3rem 2rem 5rem;
-      max-width: 1400px;
-      margin: 0 auto;
     }
-
+    
     .app-card {
-      background: #121212;
-      border: 1.5px solid #444;
+      background: var(--card-bg);
       border-radius: 15px;
       padding: 2rem;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       transition: all 0.4s ease;
       position: relative;
-      user-select: none;
       overflow: hidden;
+      border: 1px solid #333;
     }
+    
     .app-card::before {
       content: "";
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        to bottom right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.1) 50%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      transform: rotate(45deg);
-      transition: all 0.6s ease;
-      opacity: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-color);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
     }
-    .app-card:hover::before {
-      animation: shine 1.5s;
-      opacity: 1;
-    }
-    @keyframes shine {
-      0% {
-        left: -50%;
-        top: -50%;
-      }
-      100% {
-        left: 150%;
-        top: 150%;
-      }
-    }
+    
     .app-card:hover {
-      transform: scale(1.05) rotate(1deg);
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
-      border-color: #fff;
-      z-index: 10;
-    }
-
-    .app-card h2 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      position: relative;
-      display: inline-block;
-    }
-    .app-card h2::after {
-      content: "";
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 50px;
-      height: 3px;
-      background: #fff;
-      transition: width 0.3s ease;
-    }
-    .app-card:hover h2::after {
-      width: 100%;
-    }
-
-    .app-card p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #ccc;
-      flex-grow: 1;
-      user-select: text;
-    }
-
-    .get-button {
-      background: #fff;
-      color: #000;
-      border: none;
-      padding: 0.9rem 1.6rem;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-top: 1.8rem;
-      cursor: pointer;
-      box-shadow: 0 0 12px #fff;
-      transition: all 0.3s ease;
-      align-self: center;
-      user-select: none;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    .get-button::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      background-color: #000;
-      transition: width 0.3s ease;
-      z-index: -1;
-    }
-    .get-button:hover {
-      background-color: transparent;
-      color: #fff;
-      transform: scale(1.05);
-    }
-    .get-button:hover::before {
-      width: 100%;
-    }
-    .get-button:active {
-      transform: scale(0.95);
-    }
-
-    /* Hakkımızda Bölümü */
-    #about {
-      background: #111;
-      padding: 4rem 2rem 6rem;
-      text-align: center;
-      border-top: 1px solid #222;
-      border-bottom: 1px solid #222;
-      user-select: none;
-      position: relative;
-    }
-    #about::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('https://raw.githubusercontent.com/username/repo/main/image2.png') center/cover no-repeat;
-      opacity: 0.05;
-      z-index: 0;
-    }
-    #about h2 {
-      font-size: 2.5rem;
-      font-weight: 900;
-      margin-bottom: 1.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 1;
-    }
-    #about p {
-      max-width: 850px;
-      margin: 0 auto;
-      font-size: 1.2rem;
-      line-height: 1.9;
-      color: #ccc;
-      user-select: text;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* SVG İkonlar - Hakkımızda İçin */
-    .icons-container {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      margin-top: 3rem;
-      user-select: none;
-      position: relative;
-      z-index: 1;
-    }
-    .icon-box {
-      width: 90px;
-      height: 90px;
-      border: 2px solid #444;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      cursor: default;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-    }
-    .icon-box:hover {
-      border-color: #fff;
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    }
-    svg {
-      fill: #ccc;
-      width: 50px;
-      height: 50px;
-      transition: fill 0.3s ease;
-    }
-    .icon-box:hover svg {
-      fill: #fff;
-    }
-
-    /* İletişim Bölümü */
-    #contact {
-      padding: 4rem 2rem 6rem;
-      max-width: 700px;
-      margin: 0 auto;
-      user-select: none;
-    }
-    #contact h2 {
-      font-size: 2.5rem;
-      font-weight: 900;
-      margin-bottom: 2rem;
-      text-align: center;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.3rem;
-    }
-    input, textarea {
-      padding: 1rem;
-      border-radius: 12px;
-      border: none;
-      background: #222;
-      color: #eee;
-      font-size: 1.1rem;
-      resize: none;
-      transition: all 0.3s ease;
-      border: 1px solid transparent;
-    }
-    input:focus, textarea:focus {
-      outline: none;
-      background-color: #333;
-      border-color: #fff;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    }
-    input::placeholder, textarea::placeholder {
-      color: #777;
-    }
-    button[type="submit"] {
-      padding: 1rem;
-      border: none;
-      border-radius: 30px;
-      background: #fff;
-      color: #000;
-      font-weight: 800;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      user-select: none;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    button[type="submit"]::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      background: #000;
-      transition: width 0.3s ease;
-      z-index: -1;
-    }
-    button[type="submit"]:hover {
-      color: #fff;
-    }
-    button[type="submit"]:hover::before {
-      width: 100%;
-    }
-    button[type="submit"]:active {
-      transform: scale(0.95);
-    }
-
-    /* CAPTCHA alanı */
-    .captcha {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      color: #ccc;
-      font-weight: 700;
-      font-size: 1.1rem;
-      user-select: text;
-    }
-    .captcha input {
-      width: 70px;
-      padding: 0.6rem;
-      font-weight: 700;
-      font-size: 1rem;
-      text-align: center;
-      background: #222;
-      color: #eee;
-      border-radius: 8px;
-      border: none;
-      transition: all 0.3s ease;
-    }
-    .captcha input:focus {
-      outline: none;
-      background-color: #333;
-      border: 1px solid #fff;
-    }
-
-    /* Ekibimiz Bölümü */
-    #team {
-      background: #000;
-      padding: 5rem 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-    #team::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('https://raw.githubusercontent.com/username/repo/main/image2.png') center/cover no-repeat;
-      opacity: 0.05;
-      z-index: 0;
-    }
-    #team h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 3rem;
-      position: relative;
-      z-index: 1;
-    }
-    .team-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-    .team-member {
-      background: rgba(26, 26, 26, 0.8);
-      border-radius: 12px;
-      padding: 2rem;
-      width: 280px;
-      text-align: center;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(5px);
-      border: 1px solid #333;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    .team-member:hover {
       transform: translateY(-10px);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-      border-color: #fff;
+      border-color: var(--primary-color);
     }
-    .team-member img {
+    
+    .app-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .app-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1.5rem;
+      border-radius: 15px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: 0 5px 15px rgba(126, 87, 194, 0.4);
+    }
+    
+    .app-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .app-card p {
+      color: var(--text-gray);
+      margin-bottom: 1.5rem;
+    }
+    
+    .app-features {
+      margin-bottom: 2rem;
+    }
+    
+    .app-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-gray);
+    }
+    
+    .app-features li::before {
+      content: "✓";
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    /* Hakkımızda Bölümü */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .about-img {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      height: 400px;
+    }
+    
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .about-img:hover img {
+      transform: scale(1.05);
+    }
+    
+    .about-text h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .about-text p {
+      margin-bottom: 1.5rem;
+      color: var(--text-gray);
+    }
+    
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .stat-box {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .stat-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Ekibimiz Bölümü */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .team-member {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .team-member::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--primary-color);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .team-member:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .member-img {
       width: 150px;
       height: 150px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #fff;
-      margin-bottom: 1rem;
+      border: 5px solid rgba(126, 87, 194, 0.2);
+      margin: 0 auto 1.5rem;
       transition: all 0.3s ease;
     }
-    .team-member:hover img {
+    
+    .team-member:hover .member-img {
+      border-color: var(--primary-color);
       transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     }
-    .team-member h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: #fff;
-    }
-    .team-member p {
-      color: #ccc;
-      font-size: 1rem;
-    }
-
-    /* İstatistikler Bölümü */
-    #stats {
-      background: #111;
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-    #stats h2 {
-      font-size: 2.5rem;
-      margin-bottom: 3rem;
-    }
-    .stats-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .stat-item {
-      flex: 1 1 200px;
-      padding: 2rem;
-      background: #1a1a1a;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-    }
-    .stat-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    }
-    .stat-number {
-      font-size: 3rem;
-      font-weight: 700;
-      color: #fff;
+    
+    .member-name {
+      font-size: 1.3rem;
       margin-bottom: 0.5rem;
     }
-    .stat-label {
-      font-size: 1.2rem;
-      color: #ccc;
+    
+    .member-role {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: block;
     }
-
-    /* Footer */
-    footer {
-      padding: 3rem 1rem;
-      background: #111;
-      text-align: center;
-      color: #777;
-      font-size: 1rem;
-      border-top: 1px solid #222;
-      user-select: none;
-      position: relative;
+    
+    .member-bio {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
     }
-    footer::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #fff, transparent);
-    }
-    footer .socials {
-      margin-top: 1.5rem;
+    
+    .member-social {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
     }
-    footer .socials a {
-      display: inline-flex;
+    
+    .member-social a {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #333;
+      display: flex;
       align-items: center;
       justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .member-social a:hover {
+      background: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    /* İletişim Bölümü */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    
+    .contact-info {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+    
+    .info-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: flex-start;
+    }
+    
+    .info-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(126, 87, 194, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    
+    .info-content h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .info-content p, .info-content a {
+      color: var(--text-gray);
+    }
+    
+    .info-content a:hover {
+      color: var(--primary-color);
+    }
+    
+    .contact-form {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #222;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(126, 87, 194, 0.2);
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .captcha-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .captcha-question {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    
+    .captcha-input {
+      width: 100px;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #222;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--darker-bg);
+      padding: 4rem 0 2rem;
+      position: relative;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    
+    .footer-col h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: white;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .footer-col h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--primary-color);
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-logo img {
+      width: 30px;
+    }
+    
+    .footer-logo span {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .footer-about p {
+      color: var(--text-gray);
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: var(--text-gray);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary-color);
+      transform: translateX(5px);
+    }
+    
+    .footer-links a::before {
+      content: '→';
+      color: var(--primary-color);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover::before {
+      opacity: 1;
+    }
+    
+    .footer-contact li {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    
+    .footer-contact i {
+      color: var(--primary-color);
+      margin-top: 0.2rem;
+    }
+    
+    .footer-contact span {
+      color: var(--text-gray);
+    }
+    
+    .footer-newsletter p {
+      color: var(--text-gray);
+      margin-bottom: 1.5rem;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .newsletter-input {
+      flex: 1;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #222;
+      color: white;
+    }
+    
+    .newsletter-btn {
+      padding: 0 1.5rem;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .newsletter-btn:hover {
+      background: var(--secondary-color);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #333;
+    }
+    
+    .footer-bottom p {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-social a {
       width: 40px;
       height: 40px;
       border-radius: 50%;
       background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
       transition: all 0.3s ease;
     }
-    footer .socials a:hover {
-      background: #fff;
+    
+    .footer-social a:hover {
+      background: var(--primary-color);
       transform: translateY(-3px);
     }
-    footer .socials a:hover svg {
-      fill: #000;
+    
+    /* Responsive Tasarım */
+    @media (max-width: 1200px) {
+      .container {
+        max-width: 1000px;
+      }
     }
-    footer .socials svg {
-      fill: #777;
-      width: 20px;
-      height: 20px;
-      transition: all 0.3s ease;
+    
+    @media (max-width: 992px) {
+      .about-content,
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .about-img {
+        height: 300px;
+        order: -1;
+      }
     }
-    .copyright {
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #555;
+    
+    @media (max-width: 768px) {
+      .section {
+        padding: 3rem 0;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .hero-title {
+        font-size: 3rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        gap: 1.5rem;
+        clip-path: circle(0% at 100% 0);
+        transition: all 0.5s ease;
+      }
+      
+      .nav-links.active {
+        clip-path: circle(150% at 100% 0);
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
     }
-
+    
+    @media (max-width: 576px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-btns {
+        flex-direction: column;
+      }
+      
+      .about-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+    }
+    
+    /* Animasyonlar */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    /* Özel Efektler */
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .pulse {
+      animation: pulse 2s ease infinite;
+    }
+    
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+    
+    .delay-2 {
+      animation-delay: 0.4s;
+    }
+    
+    .delay-3 {
+      animation-delay: 0.6s;
+    }
+    
     /* Scrollbar */
     ::-webkit-scrollbar {
       width: 10px;
     }
+    
     ::-webkit-scrollbar-track {
       background: #111;
     }
+    
     ::-webkit-scrollbar-thumb {
-      background: #444;
+      background: var(--primary-color);
       border-radius: 5px;
     }
+    
     ::-webkit-scrollbar-thumb:hover {
-      background: #555;
+      background: var(--secondary-color);
     }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      header {
-        font-size: 2.5rem;
-      }
-      #apps {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+    
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--dark-bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    
+    .preloader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .loader {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(126, 87, 194, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--primary-color);
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
       }
     }
-
-    @media (max-width: 768px) {
-      nav ul {
-        gap: 1rem;
-      }
-      header {
-        font-size: 2rem;
-        padding: 2rem 1rem 3rem;
-      }
-      #about h2, #contact h2, #team h2 {
-        font-size: 2rem;
-      }
-      .icons-container {
-        flex-wrap: wrap;
-        gap: 1.5rem;
-      }
-      .team-container {
-        flex-direction: column;
-        align-items: center;
-      }
-      .team-member {
-        width: 100%;
-        max-width: 350px;
-      }
+    
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
     }
-
-    @media (max-width: 480px) {
-      nav {
-        flex-direction: column;
-        padding: 1rem;
-      }
-      nav ul {
-        margin-top: 1rem;
-      }
-      header {
-        font-size: 1.8rem;
-        padding: 1.5rem 1rem;
-      }
-      .app-card {
-        padding: 1.5rem;
-      }
-      .app-card h2 {
-        font-size: 1.5rem;
-      }
-      .get-button {
-        padding: 0.7rem 1.2rem;
-        font-size: 1rem;
-      }
+    
+    .back-to-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background: var(--secondary-color);
+      transform: translateY(-5px);
+    }
+    
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal-content {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 15px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+    }
+    
+    .modal.active .modal-content {
+      transform: scale(1);
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-gray);
+      transition: all 0.3s ease;
+    }
+    
+    .close-modal:hover {
+      color: var(--primary-color);
+      transform: rotate(90deg);
+    }
+    
+    /* Notification */
+    .notification {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .notification.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Progress Bar */
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: transparent;
+      z-index: 1000;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: var(--primary-color);
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+    
+    /* Dark/Light Mode Toggle */
+    .theme-toggle {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--card-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .theme-toggle i {
+      font-size: 1.2rem;
+      color: var(--text-light);
+    }
+    
+    /* Timeline */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      background: var(--primary-color);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1px;
+    }
+    
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+    
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      top: 15px;
+      z-index: 1;
+    }
+    
+    .left {
+      left: 0;
+    }
+    
+    .right {
+      left: 50%;
+    }
+    
+    .left::after {
+      right: -10px;
+    }
+    
+    .right::after {
+      left: -10px;
+    }
+    
+    .timeline-content {
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .timeline-date {
+      color: var(--primary-color);
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader"></div>
+  </div>
 
-  <nav>
-    <div class="logo">
-      <img src="https://raw.githubusercontent.com/username/repo/main/image2.png" alt="Jetskig Logo">
-      <span>Jetskig</span>
-    </div>
-    <ul>
-      <li class="active"><a href="#apps">Uygulamalar</a></li>
-      <li><a href="#about">Hakkımızda</a></li>
-      <li><a href="#team">Ekibimiz</a></li>
-      <li><a href="#contact">İletişim</a></li>
-    </ul>
-  </nav>
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
 
-  <header>
-    <div class="header-content">
-      J E T S K I G &nbsp;&nbsp; UYGULAMALAR
-    </div>
-  </header>
-
-  <section id="apps" aria-label="Uygulamalarımız">
-    <!-- Uygulama Kartları -->
-    <article class="app-card" tabindex="0">
-      <h2>JetSpeed</h2>
-      <p>Hızlı ve güvenli dosya transferi için geliştirilmiş premium uygulama. Büyük dosyaları saniyeler içinde gönderin.</p>
-      <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
-    </article>
-
-    <article class="app-card" tabindex="0">
-      <h2>DarkNote</h2>
-      <p>Karanlık tema optimizasyonlu not alma uygulaması. Tüm cihazlarınızda senkronize çalışır.</p>
-      <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
-    </article>
-
-    <article class="app-card" tabindex="0">
-      <h2>SecureVault</h2>
-      <p>Şifrelerinizi ve önemli bilgilerinizi güvenle saklayın. Biyometrik giriş desteği ile.</p>
-      <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
-    </article>
-
-    <article class="app-card" tabindex="0">
-      <h2>TaskFlow</h2>
-      <p>Üretkenliğinizi artıracak akıllı görev yöneticisi. Projelerinizi kolayca yönetin.</p>
-      <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
-    </article>
-
-    <article class="app-card" tabindex="0">
-      <h2>SleepWave</h2>
-      <p>Uyku kalitenizi artıran özel sesler ve meditasyon uygulaması. Rahat bir uyku için.</p>
-      <button class="get-button" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
-    </article>
-  </section>
-
-  <section id="about" aria-label="Hakkımızda">
-    <h2>Hakkımızda</h2>
-    <p>
-      Jetskig, 2020 yılında kurulmuş bir mobil uygulama geliştirme şirketidir. Kullanıcı deneyimini ön planda tutan, 
-      minimalist tasarımlı ve yüksek performanslı uygulamalar geliştiriyoruz. Özellikle karanlık tema konusunda 
-      uzmanlaşmış ekibimiz, göz yormayan arayüzler tasarlamak için özen gösteriyor.
-    </p>
-    <div class="icons-container" role="img" aria-label="Hakkımızda ikonları">
-      <div class="icon-box" title="E-posta">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-        </svg>
-      </div>
-      <div class="icon-box" title="Android">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.3-.15-.68-.04-.85.26l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.71c-.2-.3-.58-.38-.87-.17-.3.2-.37.58-.17.87l1.84 3.18C3.17 11.06 1 14.4 1 18.31 1 19.66 2.34 21 3.69 21h16.61c1.35 0 2.69-1.34 2.69-2.69 0-3.91-2.17-7.25-5.39-8.83zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/>
-        </svg>
-      </div>
-      <div class="icon-box" title="Telefon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <section id="stats">
-    <h2>İstatistiklerimiz</h2>
-    <div class="stats-container">
-      <div class="stat-item">
-        <div class="stat-number">50K+</div>
-        <div class="stat-label">Mutlu Kullanıcı</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">15+</div>
-        <div class="stat-label">Uygulama</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">4.9</div>
-        <div class="stat-label">Ortalama Puan</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">24/7</div>
-        <div class="stat-label">Destek</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="team">
-    <h2>Ekibimiz</h2>
-    <div class="team-container">
-      <div class="team-member">
-        <img src="https://raw.githubusercontent.com/username/repo/main/image1.png" alt="Hakan">
-        <h3>Hakan</h3>
-        <p>Kurucu & CEO</p>
-      </div>
-      <div class="team-member">
-        <img src="https://raw.githubusercontent.com/username/repo/main/image1.png" alt="Hakan">
-        <h3>Hakan</h3>
-        <p>Baş Yazılımcı</p>
-      </div>
-      <div class="team-member">
-        <img src="https://raw.githubusercontent.com/username/repo/main/image1.png" alt="Hakan">
-        <h3>Hakan</h3>
-        <p>UX/UI Tasarımcısı</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" aria-label="İletişim">
-    <h2>İletişim</h2>
-    <form id="contactForm">
-      <input type="text" id="name" name="name" placeholder="Adınız" required aria-label="Adınız">
-      <input type="email" id="email" name="email" placeholder="E-posta Adresiniz" required aria-label="E-posta Adresiniz">
-      <textarea id="message" name="message" rows="5" placeholder="Mesajınız" required aria-label="Mesajınız"></textarea>
-
-      <div class="captcha" aria-label="Spam koruması">
-        <span id="captchaQuestion"></span>
-        <input type="text" id="captchaAnswer" name="captchaAnswer" placeholder="Cevap" required aria-label="Captcha Cevabı">
-      </div>
-
-      <button type="submit">Gönder</button>
-    </form>
-  </section>
-
-  <footer>
-    <div class="footer-content">
-      <div class="logo">
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="container">
+      <a href="#" class="logo">
         <img src="https://raw.githubusercontent.com/username/repo/main/image2.png" alt="Jetskig Logo">
         <span>Jetskig</span>
+      </a>
+      
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <ul class="nav-links" id="navLinks">
+        <li class="active"><a href="#home">Ana Sayfa</a></li>
+        <li><a href="#apps">Uygulamalar</a></li>
+        <li><a href="#about">Hakkımızda</a></li>
+        <li><a href="#team">Ekibimiz</a></li>
+        <li><a href="#contact">İletişim</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <img src="https://source.unsplash.com/random/1920x1080/?technology,dark" alt="Hero Background" class="hero-bg">
+    <div class="hero-content">
+      <h1 class="hero-title">Premium Mobil Deneyim</h1>
+      <p class="hero-subtitle">Karanlık tema odaklı, yüksek performanslı uygulamalar geliştiriyoruz</p>
+      <div class="hero-btns">
+        <a href="#apps" class="btn btn-primary">Uygulamaları Keşfet</a>
+        <a href="#contact" class="btn btn-outline">İletişime Geç</a>
       </div>
-      <p>Hayatınızı kolaylaştıran uygulamalar</p>
-      <div class="socials">
-        <a href="https://twitter.com/jetskig" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-          <svg viewBox="0 0 24 24"><path d="M23.954 4.569a10 10 0 01-2.825.775 4.932 4.932 0 002.163-2.724 9.86 9.86 0 01-3.127 1.195 4.916 4.916 0 00-8.372 4.482 13.93 13.93 0 01-10.11-5.138 4.822 4.822 0 001.523 6.574 4.9 4.9 0 01-2.228-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.085 4.922 4.922 0 004.6 3.417A9.867 9.867 0 012 19.54a13.905 13.905 0 007.548 2.212c9.142 0 14.307-7.721 13.995-14.646a9.936 9.936 0 002.411-2.535z"/></svg>
-        </a>
-        <a href="https://linkedin.com/company/jetskig" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.238-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.762-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.025-3.06-1.867-3.06-1.867 0-2.153 1.458-2.153 2.963v5.701h-3v-10h2.881v1.367h.041c.401-.758 1.379-1.557 2.838-1.557 3.035 0 3.594 2 3.594 4.59v5.6z"/></svg>
-        </a>
-        <a href="https://github.com/jetskig" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.087-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.334-5.466-5.93 0-1.31.467-2.38 1.235-3.22-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.5 11.5 0 013.003-.404c1.02.005 2.045.138 3.003.404 2.292-1.552 3.298-1.23 3.298-1.23.655 1.653.243 2.873.119 3.176.77.84 1.235 1.91 1.235 3.22 0 4.61-2.807 5.62-5.479 5.92.43.372.823 1.102.823 2.222v3.293c0 .319.217.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12z"/></svg>
-        </a>
+    </div>
+    <a href="#apps" class="scroll-down">
+      <i class="fas fa-chevron-down"></i>
+    </a>
+  </section>
+
+  <!-- Uygulamalar Bölümü -->
+  <section class="section" id="apps">
+    <div class="container">
+      <h2 class="section-title">Uygulamalarımız</h2>
+      
+      <div class="apps-grid">
+        <div class="app-card">
+          <div class="app-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>JetSpeed</h3>
+          <p>Hızlı ve güvenli dosya transferi için geliştirilmiş premium uygulama. Büyük dosyaları saniyeler içinde gönderin.</p>
+          <ul class="app-features">
+            <li>128-bit şifreleme</li>
+            <li>Sınırsız dosya boyutu</li>
+            <li>Çapraz platform desteği</li>
+          </ul>
+          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
+        </div>
+        
+        <div class="app-card">
+          <div class="app-icon">
+            <i class="fas fa-moon"></i>
+          </div>
+          <h3>DarkNote</h3>
+          <p>Karanlık tema optimizasyonlu not alma uygulaması. Tüm cihazlarınızda senkronize çalışır.</p>
+          <ul class="app-features">
+            <li>Gerçek zamanlı senkronizasyon</li>
+            <li>Biometrik güvenlik</li>
+            <li>Özelleştirilebilir arayüz</li>
+          </ul>
+          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
+        </div>
+        
+        <div class="app-card">
+          <div class="app-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h3>SecureVault</h3>
+          <p>Şifrelerinizi ve önemli bilgilerinizi güvenle saklayın. Biyometrik giriş desteği ile.</p>
+          <ul class="app-features">
+            <li>AES-256 şifreleme</li>
+            <li>Yüz tanıma desteği</li>
+            <li>Otomatik yedekleme</li>
+          </ul>
+          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
+        </div>
+        
+        <div class="app-card">
+          <div class="app-icon">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <h3>TaskFlow</h3>
+          <p>Üretkenliğinizi artıracak akıllı görev yöneticisi. Projelerinizi kolayca yönetin.</p>
+          <ul class="app-features">
+            <li>Akıllı hatırlatıcılar</li>
+            <li>Takım işbirliği</li>
+            <li>Detaylı istatistikler</li>
+          </ul>
+          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
+        </div>
+        
+        <div class="app-card">
+          <div class="app-icon">
+            <i class="fas fa-cloud-moon"></i>
+          </div>
+          <h3>SleepWave</h3>
+          <p>Uyku kalitenizi artıran özel sesler ve meditasyon uygulaması. Rahat bir uyku için.</p>
+          <ul class="app-features">
+            <li>Uyku takibi</li>
+            <li>Kişiselleştirilmiş program</li>
+            <li>Bilimsel olarak kanıtlanmış</li>
+          </ul>
+          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
+        </div>
+        
+        <div class="app-card">
+          <div class="app-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>FinanceTrack</h3>
+          <p>Finansal sağlığınızı yönetin. Gelir-gider takibi ve bütçe planlaması yapın.</p>
+          <ul class="app-features">
+            <li>Otomatik kategorizasyon</li>
+            <li>Grafiklerle analiz</li>
+            <li>Çoklu hesap desteği</li>
+          </ul>
+          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store'dan Edinin</button>
+        </div>
       </div>
-      <div class="copyright">
-        &copy; 2025 Jetskig. Tüm hakları saklıdır.
+    </div>
+  </section>
+
+  <!-- Hakkımızda Bölümü -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">Hakkımızda</h2>
+      
+      <div class="about-content">
+        <div class="about-text">
+          <h2>Teknoloji ve Tasarımın Buluşma Noktası</h2>
+          <p>Jetskig, 2020 yılında mobil uygulama geliştirme tutkusuyla yola çıkmış bir ekiptir. Kullanıcı deneyimini merkeze alan yaklaşımımızla, günlük hayatı kolaylaştıran çözümler sunuyoruz.</p>
+          <p>Özellikle karanlık tema konusunda uzmanlaşmış ekibimiz, göz yormayan, şık ve fonksiyonel arayüzler tasarlamak için özen gösteriyor. Her uygulamamız, performans ve stabilite odaklı olarak geliştiriliyor.</p>
+          
+          <div class="about-stats">
+            <div class="stat-box">
+              <div class="stat-number">50K+</div>
+              <div class="stat-label">Mutlu Kullanıcı</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">15+</div>
+              <div class="stat-label">Uygulama</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">4.9</div>
+              <div class="stat-label">Ortalama Puan</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-img">
+          <img src="https://source.unsplash.com/random/600x400/?team,office,dark" alt="Jetskig Ekibi">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ekibimiz Bölümü -->
+  <section class="section" id="team">
+    <div class="container">
+      <h2 class="section-title">Ekibimiz</h2>
+      
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://raw.githubusercontent.com/username/repo/main/image1.png" alt="Hakan" class="member-img">
+          <h3 class="member-name">Hakan</h3>
+          <span class="member-role">Kurucu & CEO</span>
+          <p class="member-bio">10+ yıllık yazılım deneyimiyle Jetskig'in vizyoner lideri.</p>
+          <div class="member-social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <img src="https://raw.githubusercontent.com/username/repo/main/image1.png" alt="Hakan" class="member-img">
+          <h3 class="member-name">Hakan</h3>
+          <span class="member-role">Baş Yazılımcı</span>
+          <p class="member-bio">Mobil teknolojiler konusunda uzman, full-stack geliştirici.</p>
+          <div class="member-social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <img src="https://raw.githubusercontent.com/username/repo/main/image1.png" alt="Hakan" class="member-img">
+          <h3 class="member-name">Hakan</h3>
+          <span class="member-role">UX/UI Tasarımcısı</span>
+          <p class="member-bio">Kullanıcı deneyimi odaklı, minimalist tasarımların yaratıcısı.</p>
+          <div class="member-social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <img src="https://raw.githubusercontent.com/username/repo/main/image1.png" alt="Hakan" class="member-img">
+          <h3 class="member-name">Hakan</h3>
+          <span class="member-role">Pazarlama Müdürü</span>
+          <p class="member-bio">Marka bilinirliği ve kullanıcı edinme stratejileri uzmanı.</p>
+          <div class="member-social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- İletişim Bölümü -->
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title">İletişim</h2>
+      
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Bize Ulaşın</h3>
+          
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="info-content">
+              <h4>Adres</h4>
+              <p>1234 Teknoloji Vadisi, İstanbul, Türkiye</p>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="info-content">
+              <h4>E-posta</h4>
+              <a href="mailto:info@jetskig.com">info@jetskig.com</a>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="info-content">
+              <h4>Telefon</h4>
+              <a href="tel:+905551234567">+90 555 123 45 67</a>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <div class="info-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="info-content">
+              <h4>Çalışma Saatleri</h4>
+              <p>Pazartesi - Cuma: 09:00 - 18:00</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-form">
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name" class="form-label">Adınız</label>
+              <input type="text" id="name" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email" class="form-label">E-posta</label>
+              <input type="email" id="email" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="subject" class="form-label">Konu</label>
+              <input type="text" id="subject" class="form-control">
+            </div>
+            
+            <div class="form-group">
+              <label for="message" class="form-label">Mesajınız</label>
+              <textarea id="message" class="form-control" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <div class="captcha-container">
+                <span class="captcha-question" id="captchaQuestion"></span>
+                <input type="text" id="captchaAnswer" class="captcha-input" required>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Mesaj Gönder</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <img src="https://raw.githubusercontent.com/username/repo/main/image2.png" alt="Jetskig Logo">
+            <span>Jetskig</span>
+          </div>
+          <div class="footer-about">
+            <p>Hayatınızı kolaylaştıran premium mobil uygulamalar geliştiriyoruz.</p>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Hızlı Linkler</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Ana Sayfa</a></li>
+            <li><a href="#apps">Uygulamalar</a></li>
+            <li><a href="#about">Hakkımızda</a></li>
+            <li><a href="#team">Ekibimiz</a></li>
+            <li><a href="#contact">İletişim</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>İletişim</h3>
+          <ul class="footer-contact">
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span>1234 Teknoloji Vadisi, İstanbul, Türkiye</span>
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <span>info@jetskig.com</span>
+            </li>
+            <li>
+              <i class="fas fa-phone-alt"></i>
+              <span>+90 555 123 45 67</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Bülten</h3>
+          <div class="footer-newsletter">
+            <p>Yeni uygulamalarımızdan ve güncellemelerden haberdar olun.</p>
+            <form class="newsletter-form">
+              <input type="email" placeholder="E-posta adresiniz" class="newsletter-input" required>
+              <button type="submit" class="newsletter-btn">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+        <p>&copy; 2025 Jetskig. Tüm hakları saklıdır.</p>
       </div>
     </div>
   </footer>
 
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <!-- Notification -->
+  <div class="notification" id="notification">
+    Mesajınız başarıyla gönderildi!
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <h2>Özel Teklif</h2>
+      <p>Tüm uygulamalarımıza %30 indirimle sahip olun!</p>
+      <form>
+        <div class="form-group">
+          <input type="email" placeholder="E-posta adresiniz" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Teklifi Al</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Main JavaScript -->
   <script>
-    // CAPTCHA oluşturma
+    // Preloader
+    window.addEventListener('load', function() {
+      const preloader = document.querySelector('.preloader');
+      setTimeout(() => {
+        preloader.classList.add('hidden');
+      }, 1000);
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    mobileMenuBtn.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+      this.innerHTML = navLinks.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // Smooth Scrolling for Navigation Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if(targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          if(navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        }
+      });
+    });
+
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if(window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Back to Top Button
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', function() {
+      if(window.scrollY > 300) {
+        backToTopBtn.classList.add('active');
+      } else {
+        backToTopBtn.classList.remove('active');
+      }
+    });
+
+    // Progress Bar
+    const progressBar = document.getElementById('progressBar');
+    
+    window.addEventListener('scroll', function() {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollProgress = (scrollTop / scrollHeight) * 100;
+      progressBar.style.width = scrollProgress + '%';
+    });
+
+    // CAPTCHA Generation
     function generateCaptcha() {
       const num1 = Math.floor(Math.random() * 5) + 1;
       const num2 = Math.floor(Math.random() * 5) + 1;
@@ -885,8 +1861,11 @@
       sessionStorage.setItem('captchaAnswer', answer);
     }
 
-    // Form gönderim işlemi
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    // Contact Form Submission
+    const contactForm = document.getElementById('contactForm');
+    const notification = document.getElementById('notification');
+    
+    contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
       
       const userAnswer = document.getElementById('captchaAnswer').value.trim();
@@ -898,50 +1877,117 @@
         return;
       }
       
-      // E-posta doğrulama
-      const email = document.getElementById('email').value;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // Show notification
+      notification.classList.add('active');
       
-      if(!emailRegex.test(email)) {
-        alert('Lütfen geçerli bir e-posta adresi girin!');
-        return;
-      }
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        notification.classList.remove('active');
+      }, 3000);
       
-      alert('Mesajınız iletildi! En kısa sürede dönüş yapacağız.');
+      // Reset form
       this.reset();
       generateCaptcha();
     });
 
-    // Sayfa yüklendiğinde CAPTCHA oluştur
-    document.addEventListener('DOMContentLoaded', function() {
-      generateCaptcha();
+    // Modal
+    const modal = document.getElementById('modal');
+    const closeModal = document.getElementById('closeModal');
+    
+    // Show modal after 5 seconds
+    setTimeout(() => {
+      modal.classList.add('active');
+    }, 5000);
+    
+    closeModal.addEventListener('click', function() {
+      modal.classList.remove('active');
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+      if(e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Initialize CAPTCHA
+    generateCaptcha();
+
+    // Scroll Reveal Animation
+    const scrollReveal = ScrollReveal({
+      origin: 'bottom',
+      distance: '60px',
+      duration: 1000,
+      delay: 200,
+      reset: true
+    });
+
+    scrollReveal.reveal('.app-card, .team-member, .stat-box, .contact-info, .contact-form', {
+      interval: 200
+    });
+
+    // Animate elements on scroll
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.app-card, .team-member, .stat-box');
       
-      // Scroll animasyonları
-      const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.app-card, .team-member, .stat-item');
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
         
-        elements.forEach(element => {
-          const elementPosition = element.getBoundingClientRect().top;
-          const windowHeight = window.innerHeight;
-          
-          if(elementPosition < windowHeight - 100) {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-          }
-        });
-      };
-      
-      // İlk yüklemede animasyonları tetikle
-      document.querySelectorAll('.app-card, .team-member, .stat-item').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.6s ease';
+        if(elementPosition < windowHeight - 100) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
       });
+    }
+    
+    // Initialize animation
+    window.addEventListener('load', animateOnScroll);
+    window.addEventListener('scroll', animateOnScroll);
+
+    // Theme Toggle (Dark/Light Mode)
+    const themeToggle = document.createElement('div');
+    themeToggle.className = 'theme-toggle';
+    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    document.body.appendChild(themeToggle);
+    
+    themeToggle.addEventListener('click', function() {
+      document.body.classList.toggle('light-mode');
       
-      setTimeout(animateOnScroll, 300);
+      if(document.body.classList.contains('light-mode')) {
+        this.innerHTML = '<i class="fas fa-sun"></i>';
+        // Light mode styles
+        document.documentElement.style.setProperty('--dark-bg', '#f5f5f5');
+        document.documentElement.style.setProperty('--darker-bg', '#e0e0e0');
+        document.documentElement.style.setProperty('--card-bg', '#ffffff');
+        document.documentElement.style.setProperty('--text-light', '#333333');
+        document.documentElement.style.setProperty('--text-gray', '#666666');
+      } else {
+        this.innerHTML = '<i class="fas fa-moon"></i>';
+        // Dark mode styles
+        document.documentElement.style.setProperty('--dark-bg', '#000000');
+        document.documentElement.style.setProperty('--darker-bg', '#111111');
+        document.documentElement.style.setProperty('--card-bg', '#1a1a1a');
+        document.documentElement.style.setProperty('--text-light', '#ffffff');
+        document.documentElement.style.setProperty('--text-gray', '#cccccc');
+      }
+    });
+
+    // Newsletter Form
+    const newsletterForm = document.querySelector('.newsletter-form');
+    
+    newsletterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const emailInput = this.querySelector('input[type="email"]');
       
-      // Scroll event listener
-      window.addEventListener('scroll', animateOnScroll);
+      if(emailInput.value.trim() === '') {
+        alert('Lütfen e-posta adresinizi girin!');
+        return;
+      }
+      
+      // Simulate successful subscription
+      alert('Teşekkürler! Bültenimize abone oldunuz.');
+      emailInput.value = '';
     });
   </script>
 </body>
