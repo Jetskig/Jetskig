@@ -1,2113 +1,1463 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Jetskig - Premium mobil uygulamalar geliştiriyoruz">
-  <meta name="keywords" content="mobil uygulama, android, karanlık tema, uygulama geliştirme">
-  <title>Jetskig Studio</title>
-  <link rel="icon" href="https://jetskig.github.io/Jetskig/image2.png">
-  <style>
-    /* Genel Reset ve Temel Ayarlar */
-    :root {
-      --primary-color: #ffffff;
-      --secondary-color: #e0e0e0;
-      --dark-bg: #000000;
-      --darker-bg: #111111;
-      --card-bg: #1a1a1a;
-      --text-light: #ffffff;
-      --text-gray: #aaaaaa;
-      --text-dark: #333333;
-      --accent-color: #ffffff;
-      --success-color: #4caf50;
-      --glow-color: rgba(255, 255, 255, 0.7);
-    }
-    
-    *, *::before, *::after {
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box;
-      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    @font-face {
-      font-family: 'Poppins';
-      font-style: normal;
-      font-weight: 400;
-      src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-    }
-    
-    html, body {
-      background: var(--dark-bg);
-      color: var(--text-light);
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-      line-height: 1.6;
-      font-size: 16px;
-    }
-    
-    h1, h2, h3, h4, h5, h6 {
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    a {
-      color: inherit;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    a:hover {
-      color: var(--primary-color);
-      text-shadow: 0 0 15px var(--glow-color);
-    }
-    
-    img {
-      max-width: 100%;
-      height: auto;
-      transition: all 0.3s ease;
-    }
-    
-    /* Buton Stilleri */
-    .btn {
-      display: inline-block;
-      padding: 0.8rem 1.5rem;
-      border-radius: 30px;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: none;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    
-    .btn-primary {
-      background: transparent;
-      color: white;
-      border: 2px solid var(--primary-color);
-      box-shadow: 0 0 10px var(--glow-color), inset 0 0 10px var(--glow-color);
-    }
-    
-    .btn-primary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-3px);
-      box-shadow: 0 0 20px var(--glow-color), inset 0 0 15px var(--glow-color);
-    }
-    
-    .btn-primary:active {
-      transform: translateY(1px);
-    }
-    
-    .btn-outline {
-      background: transparent;
-      color: var(--text-light);
-      border: 2px solid var(--primary-color);
-    }
-    
-    .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      box-shadow: 0 0 15px var(--glow-color);
-    }
-    
-    /* Özel Animasyonlar */
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-    
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.05);
-        opacity: 0.9;
-      }
-    }
-    
-    @keyframes glow {
-      0% {
-        box-shadow: 0 0 5px var(--primary-color);
-      }
-      100% {
-        box-shadow: 0 0 20px var(--primary-color);
-      }
-    }
-    
-    @keyframes textGlow {
-      0%, 100% {
-        text-shadow: 0 0 10px var(--glow-color);
-      }
-      50% {
-        text-shadow: 0 0 20px var(--glow-color);
-      }
-    }
-    
-    @keyframes borderGlow {
-      0%, 100% {
-        border-color: rgba(255, 255, 255, 0.5);
-        box-shadow: 0 0 10px var(--glow-color);
-      }
-      50% {
-        border-color: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 0 20px var(--glow-color);
-      }
-    }
-    
-    /* Sayfa Layout */
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-    
-    .section {
-      padding: 5rem 0;
-      position: relative;
-    }
-    
-    .section-title {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 3rem;
-      position: relative;
-      display: inline-block;
-      animation: textGlow 3s ease infinite;
-    }
-    
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: var(--primary-color);
-      border-radius: 2px;
-      box-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    /* Navigation Styles */
-    nav {
-      position: fixed;
-      top: 0; 
-      left: 0; 
-      right: 0;
-      background: rgba(17, 17, 17, 0.98);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #333;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
-      user-select: none;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-    }
-    
-    nav.scrolled {
-      padding: 0.5rem 2rem;
-      background: rgba(0, 0, 0, 0.95);
-      border-bottom: 1px solid var(--primary-color);
-      box-shadow: 0 2px 15px var(--glow-color);
-    }
-    
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text-light);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .logo img {
-      width: 30px;
-      height: 30px;
-      transition: all 0.3s ease;
-      filter: drop-shadow(0 0 5px var(--glow-color));
-    }
-    
-    .logo:hover {
-      color: var(--primary-color);
-      text-shadow: 0 0 15px var(--glow-color);
-    }
-    
-    .logo:hover img {
-      transform: rotate(15deg);
-      filter: drop-shadow(0 0 10px var(--glow-color));
-    }
-    
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-    }
-    
-    .nav-links li {
-      position: relative;
-    }
-    
-    .nav-links a {
-      font-weight: 600;
-      font-size: 1.1rem;
-      padding: 0.5rem 0;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .nav-links li::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary-color);
-      transition: width 0.3s ease;
-      box-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .nav-links li:hover::after,
-    .nav-links li.active::after {
-      width: 100%;
-    }
-    
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    /* Hero Section */
-    .hero {
-      height: 100vh;
-      min-height: 800px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      padding-top: 80px;
-    }
-    
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(255,255,255,0.1) 100%);
-      z-index: -1;
-    }
-    
-    .hero-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -2;
-      opacity: 0.5;
-      filter: grayscale(100%) contrast(120%);
-    }
-    
-    .hero-content {
-      max-width: 800px;
-      padding: 0 1rem;
-    }
-    
-    .hero-title {
-      font-size: 4rem;
-      font-weight: 900;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      line-height: 1.1;
-      animation: fadeInDown 1s ease, textGlow 3s ease infinite;
-    }
-    
-    .hero-subtitle {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      color: var(--text-gray);
-      animation: fadeInUp 1s ease 0.3s forwards, textGlow 3s ease infinite;
-      opacity: 0;
-    }
-    
-    .hero-btns {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      animation: fadeInUp 1s ease 0.6s forwards;
-      opacity: 0;
-    }
-    
-    .scroll-down {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 1.5rem;
-      animation: bounce 2s infinite;
-      cursor: pointer;
-      text-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0) translateX(-50%);
-      }
-      40% {
-        transform: translateY(-20px) translateX(-50%);
-      }
-      60% {
-        transform: translateY(-10px) translateX(-50%);
-      }
-    }
-    
-    /* Uygulamalar Bölümü */
-    .apps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-    
-    .app-card {
-      background: var(--card-bg);
-      border-radius: 15px;
-      padding: 2rem;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid #333;
-      animation: borderGlow 3s infinite ease;
-    }
-    
-    .app-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--primary-color);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
-      box-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .app-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-      border-color: var(--primary-color);
-      animation: none;
-    }
-    
-    .app-card:hover::before {
-      transform: scaleX(1);
-    }
-    
-    .app-icon {
-      width: 60px;
-      height: 60px;
-      margin-bottom: 1.5rem;
-      border-radius: 15px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.5rem;
-      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    
-    .app-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .app-card p {
-      color: var(--text-gray);
-      margin-bottom: 1.5rem;
-    }
-    
-    .app-features {
-      margin-bottom: 2rem;
-    }
-    
-    .app-features li {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--text-gray);
-    }
-    
-    .app-features li::before {
-      content: "✓";
-      color: var(--primary-color);
-      font-weight: bold;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    /* Hakkımızda Bölümü */
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-    
-    .about-img {
-      position: relative;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-      height: 400px;
-      border: 1px solid rgba(255,255,255,0.2);
-      animation: borderGlow 3s infinite ease;
-    }
-    
-    .about-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-      filter: grayscale(50%) contrast(120%);
-    }
-    
-    .about-img:hover img {
-      transform: scale(1.05);
-    }
-    
-    .about-text h2 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .about-text p {
-      margin-bottom: 1.5rem;
-      color: var(--text-gray);
-    }
-    
-    .about-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    
-    .stat-box {
-      text-align: center;
-      padding: 1.5rem;
-      background: var(--card-bg);
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.1);
-      animation: borderGlow 3s infinite ease;
-    }
-    
-    .stat-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      border-color: var(--primary-color);
-      animation: none;
-    }
-    
-    .stat-number {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-      text-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .stat-label {
-      font-size: 0.9rem;
-      color: var(--text-gray);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    /* Ekibimiz Bölümü */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-    
-    .team-member {
-      background: var(--card-bg);
-      border-radius: 15px;
-      padding: 2rem;
-      text-align: center;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255,255,255,0.1);
-      animation: borderGlow 3s infinite ease;
-    }
-    
-    .team-member::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: var(--primary-color);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-      box-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .team-member:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-      animation: none;
-    }
-    
-    .team-member:hover::before {
-      transform: scaleX(1);
-    }
-    
-    .member-img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid rgba(255,255,255,0.1);
-      margin: 0 auto 1.5rem;
-      transition: all 0.3s ease;
-      filter: grayscale(30%) contrast(110%);
-    }
-    
-    .team-member:hover .member-img {
-      border-color: rgba(255,255,255,0.5);
-      transform: scale(1.05);
-      filter: grayscale(0%) contrast(120%);
-    }
-    
-    .member-name {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .member-role {
-      color: var(--primary-color);
-      font-weight: 600;
-      margin-bottom: 1rem;
-      display: block;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .member-bio {
-      color: var(--text-gray);
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .member-social {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
-    
-    .member-social a {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      background: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .member-social a:hover {
-      background: var(--primary-color);
-      transform: translateY(-3px);
-      box-shadow: 0 0 15px var(--glow-color);
-    }
-    
-    /* İletişim Bölümü */
-    .contact-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-    }
-    
-    .contact-info {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255,255,255,0.1);
-      animation: borderGlow 3s infinite ease;
-    }
-    
-    .contact-info h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: var(--primary-color);
-      text-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .info-item {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      align-items: flex-start;
-    }
-    
-    .info-icon {
-      width: 40px;
-      height: 40px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary-color);
-      font-size: 1.2rem;
-      flex-shrink: 0;
-      box-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .info-content h4 {
-      font-size: 1.1rem;
-      margin-bottom: 0.3rem;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .info-content p, .info-content a {
-      color: var(--text-gray);
-    }
-    
-    .info-content a:hover {
-      color: var(--primary-color);
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .contact-form {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255,255,255,0.1);
-      animation: borderGlow 3s infinite ease;
-    }
-    
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    
-    .form-label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .form-control {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      border: 1px solid #333;
-      background: #222;
-      color: white;
-      transition: all 0.3s ease;
-    }
-    
-    .form-control:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1), 0 0 15px var(--glow-color);
-    }
-    
-    textarea.form-control {
-      min-height: 150px;
-      resize: vertical;
-    }
-    
-    .captcha-container {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .captcha-question {
-      font-weight: 600;
-      color: var(--primary-color);
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .captcha-input {
-      width: 100px;
-      padding: 0.8rem;
-      border-radius: 8px;
-      border: 1px solid #333;
-      background: #222;
-      color: white;
-      text-align: center;
-      font-weight: bold;
-    }
-    
-    /* Footer */
-    footer {
-      background: var(--darker-bg);
-      padding: 4rem 0 2rem;
-      position: relative;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    .footer-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-    
-    .footer-col h3 {
-      font-size: 1.3rem;
-      margin-bottom: 1.5rem;
-      color: white;
-      position: relative;
-      padding-bottom: 0.5rem;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .footer-col h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 40px;
-      height: 2px;
-      background: var(--primary-color);
-      box-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .footer-logo img {
-      width: 30px;
-      filter: drop-shadow(0 0 5px var(--glow-color));
-    }
-    
-    .footer-logo span {
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .footer-about p {
-      color: var(--text-gray);
-      margin-bottom: 1.5rem;
-    }
-    
-    .footer-links li {
-      margin-bottom: 0.8rem;
-    }
-    
-    .footer-links a {
-      color: var(--text-gray);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .footer-links a:hover {
-      color: var(--primary-color);
-      transform: translateX(5px);
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .footer-links a::before {
-      content: '→';
-      color: var(--primary-color);
-      opacity: 0;
-      transition: all 0.3s ease;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .footer-links a:hover::before {
-      opacity: 1;
-    }
-    
-    .footer-contact li {
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.8rem;
-    }
-    
-    .footer-contact i {
-      color: var(--primary-color);
-      margin-top: 0.2rem;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .footer-contact span {
-      color: var(--text-gray);
-    }
-    
-    .footer-newsletter p {
-      color: var(--text-gray);
-      margin-bottom: 1.5rem;
-    }
-    
-    .newsletter-form {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    .newsletter-input {
-      flex: 1;
-      padding: 0.8rem;
-      border-radius: 8px;
-      border: 1px solid #333;
-      background: #222;
-      color: white;
-    }
-    
-    .newsletter-btn {
-      padding: 0 1.5rem;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .newsletter-btn:hover {
-      background: var(--secondary-color);
-      box-shadow: 0 0 15px var(--glow-color);
-    }
-    
-    .footer-bottom {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid #333;
-    }
-    
-    .footer-bottom p {
-      color: var(--text-gray);
-      font-size: 0.9rem;
-    }
-    
-    .footer-social {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-    
-    .footer-social a {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #222;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    .footer-social a:hover {
-      background: var(--primary-color);
-      transform: translateY(-3px);
-      box-shadow: 0 0 15px var(--glow-color);
-    }
-    
-    /* Responsive Tasarım */
-    @media (max-width: 1200px) {
-      .container {
-        max-width: 1000px;
-      }
-    }
-    
-    @media (max-width: 992px) {
-      .about-content,
-      .contact-container {
-        grid-template-columns: 1fr;
-      }
-      
-      .about-img {
-        height: 300px;
-        order: -1;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .section {
-        padding: 3rem 0;
-      }
-      
-      .section-title {
-        font-size: 2rem;
-      }
-      
-      .hero-title {
-        font-size: 3rem;
-      }
-      
-      .hero-subtitle {
-        font-size: 1.2rem;
-      }
-      
-      .mobile-menu-btn {
-        display: block;
-      }
-      
-      .nav-links {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.95);
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem;
-        gap: 1.5rem;
-        clip-path: circle(0% at 100% 0);
-        transition: all 0.5s ease;
-        border-top: 1px solid rgba(255,255,255,0.1);
-      }
-      
-      .nav-links.active {
-        clip-path: circle(150% at 100% 0);
-      }
-      
-      .footer-content {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    
-    @media (max-width: 576px) {
-      .hero-title {
-        font-size: 2.5rem;
-      }
-      
-      .hero-btns {
-        flex-direction: column;
-      }
-      
-      .about-stats {
-        grid-template-columns: 1fr;
-      }
-      
-      .footer-content {
-        grid-template-columns: 1fr;
-      }
-      
-      .newsletter-form {
-        flex-direction: column;
-      }
-    }
-    
-    /* Animasyonlar */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    /* Özel Efektler */
-    .floating {
-      animation: float 6s ease-in-out infinite;
-    }
-    
-    .pulse {
-      animation: pulse 2s ease infinite;
-    }
-    
-    .delay-1 {
-      animation-delay: 0.2s;
-    }
-    
-    .delay-2 {
-      animation-delay: 0.4s;
-    }
-    
-    .delay-3 {
-      animation-delay: 0.6s;
-    }
-    
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    
-    ::-webkit-scrollbar-track {
-      background: #111;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: var(--primary-color);
-      border-radius: 5px;
-      box-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--secondary-color);
-    }
-    
-    /* Tooltip */
-    .tooltip {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 120px;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      box-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .tooltip .tooltiptext::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: #333 transparent transparent transparent;
-    }
-    
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }
-    
-    /* Preloader */
-    .preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--dark-bg);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-    }
-    
-    .preloader.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    
-    .loader {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      border-top-color: var(--primary-color);
-      animation: spin 1s linear infinite;
-      box-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    @keyframes spin {
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    
-    /* Back to Top Button */
-    .back-to-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 50px;
-      height: 50px;
-      background: var(--primary-color);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 999;
-      box-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .back-to-top.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .back-to-top:hover {
-      background: var(--secondary-color);
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px var(--glow-color);
-    }
-    
-    /* Modal */
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-    
-    .modal.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .modal-content {
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 15px;
-      max-width: 500px;
-      width: 90%;
-      position: relative;
-      transform: scale(0.8);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: 0 0 20px var(--glow-color);
-    }
-    
-    .modal.active .modal-content {
-      transform: scale(1);
-    }
-    
-    .close-modal {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-gray);
-      transition: all 0.3s ease;
-    }
-    
-    .close-modal:hover {
-      color: var(--primary-color);
-      transform: rotate(90deg);
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    /* Notification */
-    .notification {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--primary-color);
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 5px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 15px var(--glow-color);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-    
-    .notification.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    /* Progress Bar */
-    .progress-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: transparent;
-      z-index: 1000;
-    }
-    
-    .progress-bar {
-      height: 100%;
-      background: var(--primary-color);
-      width: 0%;
-      transition: width 0.1s ease;
-      box-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    /* Dark/Light Mode Toggle */
-    .theme-toggle {
-      position: fixed;
-      bottom: 2rem;
-      left: 2rem;
-      width: 50px;
-      height: 50px;
-      background: var(--card-bg);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 999;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    
-    .theme-toggle i {
-      font-size: 1.2rem;
-      color: var(--text-light);
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-    
-    /* Timeline */
-    .timeline {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .timeline::after {
-      content: '';
-      position: absolute;
-      width: 2px;
-      background: var(--primary-color);
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      margin-left: -1px;
-      box-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .timeline-item {
-      padding: 10px 40px;
-      position: relative;
-      width: 50%;
-      box-sizing: border-box;
-    }
-    
-    .timeline-item::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: var(--primary-color);
-      border-radius: 50%;
-      top: 15px;
-      z-index: 1;
-      box-shadow: 0 0 10px var(--glow-color);
-    }
-    
-    .left {
-      left: 0;
-    }
-    
-    .right {
-      left: 50%;
-    }
-    
-    .left::after {
-      right: -10px;
-    }
-    
-    .right::after {
-      left: -10px;
-    }
-    
-    .timeline-content {
-      padding: 20px;
-      background: var(--card-bg);
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    .timeline-date {
-      color: var(--primary-color);
-      font-weight: bold;
-      text-shadow: 0 0 5px var(--glow-color);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jetskig Studio - Mobile Game Development</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0F0F0F;
+            color: #E5E7EB;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #A8D5BA;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transition: transform 0.2s, border-color 0.2s;
+            z-index: 9999;
+        }
+        
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(168, 213, 186, 0.1);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transition: transform 0.4s;
+            z-index: 9998;
+        }
+        
+        .cursor.hover {
+            transform: scale(1.5);
+            border-color: #6B46C1;
+        }
+        
+        /* Particles Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+        
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #6B46C1, #A8D5BA);
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(10px);
+            background: rgba(15, 15, 15, 0.8);
+            z-index: 100;
+            border-bottom: 1px solid rgba(107, 70, 193, 0.2);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6B46C1, #A8D5BA);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Logo */
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6B46C1, #A8D5BA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+        
+        /* Language Selector */
+        .lang-selector {
+            background: rgba(107, 70, 193, 0.2);
+            border: 1px solid rgba(168, 213, 186, 0.3);
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .lang-selector:hover {
+            background: rgba(107, 70, 193, 0.4);
+            transform: scale(1.05);
+        }
+        
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .typed-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6B46C1, #A8D5BA, #6B46C1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #6B46C1, #A8D5BA);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(107, 70, 193, 0.4);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #6B46C1, #A8D5BA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        /* Service Cards */
+        .service-card {
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.1), rgba(168, 213, 186, 0.05));
+            border: 1px solid rgba(107, 70, 193, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #6B46C1, #A8D5BA);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(107, 70, 193, 0.3);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #6B46C1, #A8D5BA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        /* Team Cards */
+        .team-card {
+            background: rgba(26, 26, 26, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        
+        .team-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .team-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.8), rgba(168, 213, 186, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .team-card:hover .team-overlay {
+            opacity: 1;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B46C1;
+            transition: transform 0.3s;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.2) rotate(360deg);
+        }
+        
+        /* Testimonials */
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.1), rgba(168, 213, 186, 0.1));
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 0 1rem;
+        }
+        
+        .stars {
+            color: #A8D5BA;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Contact Form */
+        .form-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(107, 70, 193, 0.3);
+            border-radius: 10px;
+            color: white;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #A8D5BA;
+            box-shadow: 0 0 10px rgba(168, 213, 186, 0.3);
+        }
+        
+        .form-label {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            color: #9CA3AF;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+        
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: -0.5rem;
+            left: 0.8rem;
+            font-size: 0.8rem;
+            background: #0F0F0F;
+            padding: 0 0.5rem;
+            color: #A8D5BA;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #0F0F0F, #1A1A1A);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(107, 70, 193, 0.3);
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-social a {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6B46C1, #A8D5BA);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .footer-social a:hover {
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 10px 20px rgba(107, 70, 193, 0.5);
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #6B46C1, #A8D5BA);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 99;
+            transition: left 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .typed-text { font-size: 2rem; }
+            .section-title { font-size: 1.8rem; }
+            nav { padding: 1rem; }
+            section { padding: 4rem 1rem; }
+        }
+        
+        /* Aurora Background */
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
+            background: linear-gradient(
+                45deg,
+                #6B46C1,
+                #A8D5BA,
+                #553C9A,
+                #7EC8A0
+            );
+            filter: blur(100px);
+            animation: aurora 20s ease infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes aurora {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0F0F0F;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .loader-logo {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6B46C1, #A8D5BA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .loader-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(107, 70, 193, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .loader-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #6B46C1, #A8D5BA);
+            width: 0%;
+            animation: loading 2s ease-in-out;
+        }
+        
+        @keyframes loading {
+            to { width: 100%; }
+        }
+    </style>
 </head>
 <body>
-  <!-- Preloader -->
-  <div class="preloader">
-    <div class="loader"></div>
-  </div>
-
-  <!-- Progress Bar -->
-  <div class="progress-container">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-
-  <!-- Navigation -->
-  <nav id="navbar">
-    <div class="container">
-      <a href="#" class="logo">
-        <img src="https://drive.google.com/uc?export=view&id=1lsViy8Kxv7mu2VgSn9TfRX16ecQXyI9X" alt="Jetskig Logo">
-        <span>Jetskig</span>
-      </a>
-      
-      <button class="mobile-menu-btn" id="mobileMenuBtn">
-        <i class="fas fa-bars"></i>
-      </button>
-      
-      <ul class="nav-links" id="navLinks">
-        <li class="active"><a href="#home">Ana Sayfa</a></li>
-        <li><a href="#apps">Uygulamalar</a></li>
-        <li><a href="#about">Hakkımızda</a></li>
-        <li><a href="#team">Ekibimiz</a></li>
-        <li><a href="#contact">İletişim</a></li>
-      </ul>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Aurora Background -->
+    <div class="aurora-bg"></div>
+    
+    <!-- Loader -->
+    <div class="loader">
+        <div class="loader-logo">JETSKIG.</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
     </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <img src="https://source.unsplash.com/random/1920x1080/?technology,dark" alt="Hero Background" class="hero-bg">
-    <div class="hero-content">
-      <h1 class="hero-title">Mobil Deneyim</h1>
-      <p class="hero-subtitle">Yeni,yeni uygulamalar geliştiriyoruz</p>
-      <div class="hero-btns">
-        <a href="#apps" class="btn btn-primary">Uygulamaları Keşfet</a>
-        <a href="#contact" class="btn btn-outline">İletişime Geç</a>
-      </div>
-    </div>
-    <a href="#apps" class="scroll-down">
-      <i class="fas fa-chevron-down"></i>
-    </a>
-  </section>
-
-  <!-- Uygulamalar Bölümü -->
-  <section class="section" id="apps">
-    <div class="container">
-      <h2 class="section-title">Uygulamalarımız</h2>
-      
-      <div class="apps-grid">
-        <div class="app-card">
-          <div class="app-icon">
-            <i class="fas fa-bolt"></i>
-          </div>
-          <h3>TaşKağıtMakas</h3>
-          <p>İnternetsiz,bluetooth(beta) ile arkadaşlarınız ile oynanabilir.</p>
-          <ul class="app-features">
-            <li>Karanlık-Aydınlık Tema</li>
-            <li>Animasyon</li>
-            <li>Gizliliğe Önem</li>
-          </ul>
-          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store</button>
-        </div>
-        
-        <div class="app-card">
-          <div class="app-icon">
-            <i class="fas fa-moon"></i>
-          </div>
-          <h3>Nekal(Geliştirme Aşamasında!)</h3>
-          <p>Nekal, önemli etkinliklerini kaydedip sana saniyesine kadar ne kadar kaldığını gösterir. Sadece tarih ve isim gir, gerisini Nekal hatırlatsın!
-</p>
-          <ul class="app-features">
-            <li>Veri Gizliliği</li>
-            <li>Basit kullanım</li>
-            <li>Özelleştirilebilir arayüz</li>
-          </ul>
-          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store</button>
-        </div>
-        
-        <div class="app-card">
-          <div class="app-icon">
-            <i class="fas fa-lock"></i>
-          </div>
-          <h3>SecureVault{Geçersizdir}</h3>
-          <p>Şifrelerinizi ve önemli bilgilerinizi güvenle saklayın. Biyometrik giriş desteği ile.</p>
-          <ul class="app-features">
-            <li>AES-256 şifreleme</li>
-            <li>Yüz tanıma desteği</li>
-            <li>Otomatik yedekleme</li>
-          </ul>
-          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store</button>
-        </div>
-        
-        <div class="app-card">
-          <div class="app-icon">
-            <i class="fas fa-tasks"></i>
-          </div>
-          <h3>TaskFlow{Geçersizdir}</h3>
-          <p>Üretkenliğinizi artıracak akıllı görev yöneticisi. Projelerinizi kolayca yönetin.</p>
-          <ul class="app-features">
-            <li>Akıllı hatırlatıcılar</li>
-            <li>Takım işbirliği</li>
-            <li>Detaylı istatistikler</li>
-          </ul>
-          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store</button>
-        </div>
-        
-        <div class="app-card">
-          <div class="app-icon">
-            <i class="fas fa-cloud-moon"></i>
-          </div>
-          <h3>SleepWave{Geçersizdir}</h3>
-          <p>Uyku kalitenizi artıran özel sesler ve meditasyon uygulaması. Rahat bir uyku için.</p>
-          <ul class="app-features">
-            <li>Uyku takibi</li>
-            <li>Kişiselleştirilmiş program</li>
-            <li>Bilimsel olarak kanıtlanmış</li>
-          </ul>
-          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store</button>
-        </div>
-        
-        <div class="app-card">
-          <div class="app-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h3>FinanceTrack{Geçersizdir}</h3>
-          <p>Finansal sağlığınızı yönetin. Gelir-gider takibi ve bütçe planlaması yapın.</p>
-          <ul class="app-features">
-            <li>Otomatik kategorizasyon</li>
-            <li>Grafiklerle analiz</li>
-            <li>Çoklu hesap desteği</li>
-          </ul>
-          <button class="btn btn-primary" onclick="window.open('https://play.google.com/store', '_blank')">Play Store</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Hakkımızda Bölümü -->
-  <section class="section" id="about">
-    <div class="container">
-      <h2 class="section-title">Hakkımızda</h2>
-      
-      <div class="about-content">
-        <div class="about-text">
-          <h2>Teknoloji ve Tasarımın Buluşma Noktası</h2>
-          <p>Jetskig, Temmuz 2025 yılında mobil uygulama geliştirme tutkusuyla yola çıkmış bir geliştirici markadır. Kullanıcı deneyimini merkeze alan yaklaşımımızla, yeni uygulamalar yayaınlıyoruz.</p>
-          <p>Özellikle karanlık tema konusunda uzmanlaşmış ekibimiz, göz yormayan, şık ve fonksiyonel arayüzler tasarlamak için özen gösteriyor, göstermeye çalışıyoruz. Her uygulamamız, performans,stabilite ve deneme odaklı olarak geliştiriliyor.</p>
-          
-          <div class="about-stats">
-            <div class="stat-box">
-              <div class="stat-number">10+</div>
-              <div class="stat-label">Kullanıcı</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-number">2</div>
-              <div class="stat-label">Uygulama</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-number">5 ★</div>
-              <div class="stat-label">Puan</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="about-img">
-          <img src="https://source.unsplash.com/random/600x400/?team,office,dark" alt="Jetskig Ekibi">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Ekibimiz Bölümü -->
-  <section class="section" id="team">
-    <div class="container">
-      <h2 class="section-title">Ekibimiz</h2>
-      
-      <div class="team-grid">
-        <!-- 1. Ekip Üyesi -->
-        <div class="team-member">
-          <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
-          <h3 class="member-name">Hakan</h3>
-          <span class="member-role">Kurucu & CEO</span>
-          <p class="member-bio">1+ yıllık yazılım deneyimiyle Jetskig'in lideri.</p>
-          <div class="member-social">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-          </div>
-        </div>
-        
-        <!-- 2. Ekip Üyesi -->
-        <div class="team-member">
-          <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
-          <h3 class="member-name">Hakan</h3>
-          <span class="member-role">Baş Yazılımcı</span>
-          <p class="member-bio">Mobil teknolojiler konusunda deneyim kazanan, full-stack geliştirici.</p>
-          <div class="member-social">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-          </div>
-        </div>
-        
-        <!-- 3. Ekip Üyesi -->
-        <div class="team-member">
-          <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
-          <h3 class="member-name">Hakan</h3>
-          <span class="member-role">UX/UI Tasarımcısı</span>
-          <p class="member-bio">Kullanıcı deneyimi odaklı, minimalist tasarımların yaratıcısı.</p>
-          <div class="member-social">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-          </div>
-        </div>
-        
-        <!-- 4. Ekip Üyesi -->
-        <div class="team-member">
-          <img src="https://jetskig.github.io/Jetskig/image1.png" alt="Hakan" class="member-img">
-          <h3 class="member-name">Hakan</h3>
-          <span class="member-role">Pazarlama Müdürü</span>
-          <p class="member-bio">Marka bilinirliği ve kullanıcı edinme stratejileri başkanı.</p>
-          <div class="member-social">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- İletişim Bölümü -->
-  <section class="section" id="contact">
-    <div class="container">
-      <h2 class="section-title">İletişim</h2>
-      
-      <div class="contact-container">
-        <div class="contact-info">
-          <h3>Bize Ulaşın</h3>
-          
-          <div class="info-item">
-            <div class="info-icon">
-              <i class="fas fa-map-marker-alt"></i>
-            </div>
-            <div class="info-content">
-              <h4>Adres</h4>
-              <p>Fethiye-Muğla, Türkiye</p>
-            </div>
-          </div>
-          
-          <div class="info-item">
-            <div class="info-icon">
-              <i class="fas fa-envelope"></i>
-            </div>
-            <div class="info-content">
-              <h4>E-posta</h4>
-              <a href="mailto:info@jetskig.com">jetskigstudio@gmail.com</a>
-            </div>
-          </div>
-          
-          <div class="info-item">
-            <div class="info-icon">
-              <i class="fas fa-phone-alt"></i>
-            </div>
-            <div class="info-content">
-              <h4>Telefon</h4>
-              <a href="tel:+905551234567">+90 551 *** ** **</a>
-            </div>
-          </div>
-          
-          <div class="info-item">
-            <div class="info-icon">
-              <i class="fas fa-clock"></i>
-            </div>
-            <div class="info-content">
-              <h4>Çalışma Saatleri</h4>
-              <p>Hafta İçi Değişken | Hafta Sonu Cmt 10-18.00 Pzr 10-18.00</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="contact-form">
-          <form id="contactForm">
-            <div class="form-group">
-              <label for="name" class="form-label">Adınız</label>
-              <input type="text" id="name" class="form-control" required>
+    
+    <!-- Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="flex justify-between items-center max-w-6xl mx-auto">
+            <div class="logo">JETSKIG.</div>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about" class="nav-link" data-key="nav-about">About</a>
+                <a href="#services" class="nav-link" data-key="nav-services">Services</a>
+                <a href="#team" class="nav-link" data-key="nav-team">Team</a>
+                <a href="#testimonials" class="nav-link" data-key="nav-testimonials">Testimonials</a>
+                <a href="#contact" class="nav-link" data-key="nav-contact">Contact</a>
+                
+                <select class="lang-selector" id="language-switcher">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="tr">🇹🇷 Türkçe</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="it">🇮🇹 Italiano</option>
+                    <option value="fr">🇫🇷 Français</option>
+                </select>
             </div>
             
-            <div class="form-group">
-              <label for="email" class="form-label">E-posta</label>
-              <input type="email" id="email" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="subject" class="form-label">Konu</label>
-              <input type="text" id="subject" class="form-control">
-            </div>
-            
-            <div class="form-group">
-              <label for="message" class="form-label">Mesajınız</label>
-              <textarea id="message" class="form-control" required></textarea>
-            </div>
-            
-            <div class="form-group">
-              <div class="captcha-container">
-                <span class="captcha-question" id="captchaQuestion"></span>
-                <input type="text" id="captchaAnswer" class="captcha-input" required>
-              </div>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Mesaj Gönder</button>
-          </form>
+            <button class="md:hidden text-2xl" id="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-      </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#about" class="nav-link text-2xl" data-key="nav-about">About</a>
+        <a href="#services" class="nav-link text-2xl" data-key="nav-services">Services</a>
+        <a href="#team" class="nav-link text-2xl" data-key="nav-team">Team</a>
+        <a href="#testimonials" class="nav-link text-2xl" data-key="nav-testimonials">Testimonials</a>
+        <a href="#contact" class="nav-link text-2xl" data-key="nav-contact">Contact</a>
+        <select class="lang-selector mt-8" id="mobile-language-switcher">
+            <option value="en">🇬🇧 English</option>
+            <option value="tr">🇹🇷 Türkçe</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="fr">🇫🇷 Français</option>
+        </select>
     </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-col">
-          <div class="footer-logo">
-            <img src="https://drive.google.com/uc?export=view&id=1lsViy8Kxv7mu2VgSn9TfRX16ecQXyI9X" alt="Jetskig Logo">
-            <span>Jetskig</span>
-          </div>
-          <div class="footer-about">
-            <p>Mobil uygulamalar geliştiriyoruz.</p>
-          </div>
+    
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="text-center z-10">
+            <h1 class="typed-text mb-6"></h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto" data-key="hero-subtitle">
+                We create innovative mobile gaming experiences that push boundaries
+            </p>
+            <button class="cta-button" data-key="hero-cta">Explore Our Games</button>
         </div>
         
-        <div class="footer-col">
-          <h3>Hızlı Linkler</h3>
-          <ul class="footer-links">
-            <li><a href="#home">Ana Sayfa</a></li>
-            <li><a href="#apps">Uygulamalar</a></li>
-            <li><a href="#about">Hakkımızda</a></li>
-            <li><a href="#team">Ekibimiz</a></li>
-            <li><a href="#contact">İletişim</a></li>
-          </ul>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down text-3xl text-gray-400"></i>
         </div>
-        
-        <div class="footer-col">
-          <h3>İletişim</h3>
-          <ul class="footer-contact">
-            <li>
-              <i class="fas fa-map-marker-alt"></i>
-              <span>Fethiye Muğla, Türkiye</span>
-            </li>
-            <li>
-              <i class="fas fa-envelope"></i>
-              <span>jetskigstudio@gmail.com</span>
-            </li>
-            <li>
-              <i class="fas fa-phone-alt"></i>
-              <span>+90 551 *** ** **</span>
-            </li>
-          </ul>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title" data-key="about-title">About Us</h2>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <p class="text-lg text-gray-300 mb-6 leading-relaxed" data-key="about-text">
+                    Jetskig Studio is a creative powerhouse dedicated to crafting innovative mobile games. We combine cutting-edge technology with artistic vision to deliver unforgettable gaming experiences.
+                </p>
+                <div class="grid grid-cols-3 gap-4 mt-8">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-400 counter" data-target="50">0</div>
+                        <div class="text-sm text-gray-400" data-key="about-games">Games Released</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-400 counter" data-target="1M">0</div>
+                        <div class="text-sm text-gray-400" data-key="about-downloads">Downloads</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-400 counter" data-target="99">0</div>
+                        <div class="text-sm text-gray-400" data-key="about-satisfaction">% Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="w-full h-96 bg-gradient-to-br from-purple-600/20 to-green-600/20 rounded-2xl backdrop-blur-sm border border-purple-500/30 flex items-center justify-center">
+                    <i class="fas fa-gamepad text-8xl text-gray-700"></i>
+                </div>
+            </div>
         </div>
-        
-        <div class="footer-col">
-          <h3>Bülten</h3>
-          <div class="footer-newsletter">
-            <p>Yeni uygulamalarımızdan ve güncellemelerden haberdar olun.</p>
-            <form class="newsletter-form">
-              <input type="email" placeholder="E-posta adresiniz" class="newsletter-input" required>
-              <button type="submit" class="newsletter-btn">
-                <i class="fas fa-paper-plane"></i>
-              </button>
-            </form>
-          </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title" data-key="services-title">Our Services</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3 class="text-xl font-bold mb-3" data-key="service1-title">Game Development</h3>
+                <p class="text-gray-400" data-key="service1-desc">Full-cycle mobile game development from concept to launch</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                <h3 class="text-xl font-bold mb-3" data-key="service2-title">UI/UX Design</h3>
+                <p class="text-gray-400" data-key="service2-desc">Stunning interfaces that players love to interact with</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-cube"></i></div>
+                <h3 class="text-xl font-bold mb-3" data-key="service3-title">3D & Animation</h3>
+                <p class="text-gray-400" data-key="service3-desc">High-quality 3D models and smooth animations</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-music"></i></div>
+                <h3 class="text-xl font-bold mb-3" data-key="service4-title">Sound Design</h3>
+                <p class="text-gray-400" data-key="service4-desc">Immersive audio that brings games to life</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-dollar-sign"></i></div>
+                <h3 class="text-xl font-bold mb-3" data-key="service5-title">Monetization</h3>
+                <p class="text-gray-400" data-key="service5-desc">Strategic monetization models for maximum revenue</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-rocket"></i></div>
+                <h3 class="text-xl font-bold mb-3" data-key="service6-title">Publishing</h3>
+                <p class="text-gray-400" data-key="service6-desc">End-to-end publishing support across all platforms</p>
+            </div>
         </div>
-      </div>
-      
-      <div class="footer-bottom">
+    </section>
+    
+    <!-- Team Section -->
+    <section id="team">
+        <h2 class="section-title" data-key="team-title">Meet Our Team</h2>
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="team-card">
+                <img src="https://via.placeholder.com/300x350/1A1A1A/6B46C1?text=CEO" alt="CEO" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg">Alex Chen</h3>
+                    <p class="text-gray-400 text-sm" data-key="team1-role">Founder & CEO</p>
+                </div>
+                <div class="team-overlay">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="https://via.placeholder.com/300x350/1A1A1A/A8D5BA?text=CTO" alt="CTO" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg">Sarah Miller</h3>
+                    <p class="text-gray-400 text-sm" data-key="team2-role">Lead Developer</p>
+                </div>
+                <div class="team-overlay">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="https://via.placeholder.com/300x350/1A1A1A/6B46C1?text=Artist" alt="Artist" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg">Maya Patel</h3>
+                    <p class="text-gray-400 text-sm" data-key="team3-role">Art Director</p>
+                </div>
+                <div class="team-overlay">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="https://via.placeholder.com/300x350/1A1A1A/A8D5BA?text=Designer" alt="Designer" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg">James Wilson</h3>
+                    <p class="text-gray-400 text-sm" data-key="team4-role">UX Designer</p>
+                </div>
+                <div class="team-overlay">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <h2 class="section-title" data-key="testimonials-title">Client Testimonials</h2>
+        <div class="splide" id="testimonials-slider">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <li class="splide__slide">
+                        <div class="testimonial-card">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-lg mb-4" data-key="testimonial1-text">"Jetskig Studio delivered beyond our expectations. Their creativity and technical expertise are unmatched!"</p>
+                            <div class="flex items-center gap-4">
+                                <img src="https://via.placeholder.com/50x50/6B46C1/FFFFFF?text=1" alt="Client" class="w-12 h-12 rounded-full">
+                                <div>
+                                    <p class="font-bold" data-key="testimonial1-name">Mark Johnson</p>
+                                    <p class="text-sm text-gray-400" data-key="testimonial1-role">CEO, GameCorp</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="testimonial-card">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-lg mb-4" data-key="testimonial2-text">"Professional team with incredible attention to detail. Our game topped the charts thanks to them!"</p>
+                            <div class="flex items-center gap-4">
+                                <img src="https://via.placeholder.com/50x50/A8D5BA/FFFFFF?text=2" alt="Client" class="w-12 h-12 rounded-full">
+                                <div>
+                                    <p class="font-bold" data-key="testimonial2-name">Lisa Anderson</p>
+                                    <p class="text-sm text-gray-400" data-key="testimonial2-role">CMO, PlayStore</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="splide__slide">
+                        <div class="testimonial-card">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-lg mb-4" data-key="testimonial3-text">"Best decision we made. Jetskig's team is passionate, skilled, and delivers on time."</p>
+                            <div class="flex items-center gap-4">
+                                <img src="https://via.placeholder.com/50x50/6B46C1/FFFFFF?text=3" alt="Client" class="w-12 h-12 rounded-full">
+                                <div>
+                                    <p class="font-bold" data-key="testimonial3-name">David Lee</p>
+                                    <p class="text-sm text-gray-400" data-key="testimonial3-role">Founder, TapFun</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title" data-key="contact-title">Get In Touch</h2>
+        <div class="grid md:grid-cols-2 gap-12">
+            <div>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder=" " required>
+                        <label class="form-label" data-key="form-name">Your Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder=" " required>
+                        <label class="form-label" data-key="form-email">Your Email</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder=" ">
+                        <label class="form-label" data-key="form-subject">Subject</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-input" rows="5" placeholder=" "></textarea>
+                        <label class="form-label" data-key="form-message">Your Message</label>
+                    </div>
+                    <button type="submit" class="cta-button w-full" data-key="form-submit">Send Message</button>
+                </form>
+            </div>
+            <div>
+                <div class="space-y-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-green-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold" data-key="contact-email">Email</p>
+                            <p>jetskigstudio@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-green-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold" data-key="contact-address">Address</p>
+                            <p>Silicon Valley, CA</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-green-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold" data-key="contact-phone">Phone</p>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 h-64 rounded-2xl overflow-hidden border border-purple-500/30">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2031.!2d-122.084249!3d37.421999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb5b0c7e1f0c1%3A0x6c5c5c5c5c5c5c5c!2sSilicon%20Valley!5e0!3m2!1sen!2sus!4v1234567890123" width="100%" height="100%" style="filter: grayscale(80%) invert(90%);" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
         <div class="footer-social">
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
         </div>
-        <p>&copy; 2025 Jetskig. Tüm hakları saklıdır.</p>
-      </div>
+        <p>&copy; 2024 Jetskig Studio. All Rights Reserved.</p>
+        <p class="text-gray-400 mt-2" data-key="footer-tagline">Crafting Mobile Gaming Excellence</p>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
     </div>
-  </footer>
-
-  <!-- Back to Top Button -->
-  <a href="#" class="back-to-top" id="backToTop">
-    <i class="fas fa-arrow-up"></i>
-  </a>
-
-  <!-- Notification -->
-  <div class="notification" id="notification">
-    Mesajınız başarıyla gönderildi!
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <span class="close-modal" id="closeModal">&times;</span>
-      <h2>Bildirim</h2>
-      <p>Tüm uygulamalarımızdan haberdar olun!</p>
-      <form>
-        <div class="form-group">
-          <input type="email" placeholder="E-posta adresiniz" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Teklifi Al</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-  <!-- Main JavaScript -->
-  <script>
-    // Preloader
-    window.addEventListener('load', function() {
-      const preloader = document.querySelector('.preloader');
-      setTimeout(() => {
-        preloader.classList.add('hidden');
-      }, 1000);
-    });
-
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.getElementById('navLinks');
     
-    mobileMenuBtn.addEventListener('click', function() {
-      navLinks.classList.toggle('active');
-      this.innerHTML = navLinks.classList.contains('active') ? 
-        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-    });
-
-    // Smooth Scrolling for Navigation Links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
+    <script>
+        // Multi-language translations
+        const translations = {
+            en: {
+                "nav-about": "About",
+                "nav-services": "Services",
+                "nav-team": "Team",
+                "nav-testimonials": "Testimonials",
+                "nav-contact": "Contact",
+                "hero-subtitle": "We create innovative mobile gaming experiences that push boundaries",
+                "hero-cta": "Explore Our Games",
+                "about-title": "About Us",
+                "about-text": "Jetskig Studio is a creative powerhouse dedicated to crafting innovative mobile games. We combine cutting-edge technology with artistic vision to deliver unforgettable gaming experiences.",
+                "about-games": "Games Released",
+                "about-downloads": "Downloads",
+                "about-satisfaction": "% Satisfaction",
+                "services-title": "Our Services",
+                "service1-title": "Game Development",
+                "service1-desc": "Full-cycle mobile game development from concept to launch",
+                "service2-title": "UI/UX Design",
+                "service2-desc": "Stunning interfaces that players love to interact with",
+                "service3-title": "3D & Animation",
+                "service3-desc": "High-quality 3D models and smooth animations",
+                "service4-title": "Sound Design",
+                "service4-desc": "Immersive audio that brings games to life",
+                "service5-title": "Monetization",
+                "service5-desc": "Strategic monetization models for maximum revenue",
+                "service6-title": "Publishing",
+                "service6-desc": "End-to-end publishing support across all platforms",
+                "team-title": "Meet Our Team",
+                "team1-role": "Founder & CEO",
+                "team2-role": "Lead Developer",
+                "team3-role": "Art Director",
+                "team4-role": "UX Designer",
+                "testimonials-title": "Client Testimonials",
+                "testimonial1-text": "\"Jetskig Studio delivered beyond our expectations. Their creativity and technical expertise are unmatched!\"",
+                "testimonial1-name": "Mark Johnson",
+                "testimonial1-role": "CEO, GameCorp",
+                "testimonial2-text": "\"Professional team with incredible attention to detail. Our game topped the charts thanks to them!\"",
+                "testimonial2-name": "Lisa Anderson",
+                "testimonial2-role": "CMO, PlayStore",
+                "testimonial3-text": "\"Best decision we made. Jetskig's team is passionate, skilled, and delivers on time.\"",
+                "testimonial3-name": "David Lee",
+                "testimonial3-role": "Founder, TapFun",
+                "contact-title": "Get In Touch",
+                "form-name": "Your Name",
+                "form-email": "Your Email",
+                "form-subject": "Subject",
+                "form-message": "Your Message",
+                "form-submit": "Send Message",
+                "contact-email": "Email",
+                "contact-address": "Address",
+                "contact-phone": "Phone",
+                "footer-tagline": "Crafting Mobile Gaming Excellence"
+            },
+            tr: {
+                "nav-about": "Hakkımızda",
+                "nav-services": "Hizmetler",
+                "nav-team": "Ekip",
+                "nav-testimonials": "Müşteriler",
+                "nav-contact": "İletişim",
+                "hero-subtitle": "Sınırları zorlayan yenilikçi mobil oyun deneyimleri yaratıyoruz",
+                "hero-cta": "Oyunları Keşfet",
+                "about-title": "Hakkımızda",
+                "about-text": "Jetskig Yaratıcı Atölyesi, yenilikçi mobil oyunlar üretmeye adanmış bir yaratıcılık merkezidir. İlerici teknolojiyi sanatsal vizyonla birleştirerek unutulmaz oyun deneyimleri sunuyoruz.",
+                "about-games": "Yayınlanan Oyun",
+                "about-downloads": "İndirme",
+                "about-satisfaction": "% Memnuniyet",
+                "services-title": "Hizmetlerimiz",
+                "service1-title": "Oyun Geliştirme",
+                "service1-desc": "Konseptten yayına kadar eksiksiz mobil oyun geliştirme",
+                "service2-title": "UI/UX Tasarım",
+                "service2-desc": "Oyuncuların etkileşim kurmaktan keyif alacağı göz alıcı arayüzler",
+                "service3-title": "3D & Animasyon",
+                "service3-desc": "Yüksek kaliteli 3D modeller ve akıcı animasyonlar",
+                "service4-title": "Ses Tasarımı",
+                "service4-desc": "Oyunları hayata geçiren sürükleyici ses deneyimi",
+                "service5-title": "Gelir Modeli",
+                "service5-desc": "Maksimum gelir için stratejik gelir modelleri",
+                "service6-title": "Yayınlama",
+                "service6-desc": "Tüm platformlarda uçtan uca yayın desteği",
+                "team-title": "Ekibimiz",
+                "team1-role": "Kurucu & CEO",
+                "team2-role": "Baş Geliştirici",
+                "team3-role": "Sanat Yönetmeni",
+                "team4-role": "UX Tasarımcısı",
+                "testimonials-title": "Müşteri Yorumları",
+                "testimonial1-text": "\"Jetskig Studio beklentilerimizin ötesinde teslimat yaptı. Yaratıcılıkları ve teknik uzmanlıkları eşsiz!\"",
+                "testimonial1-name": "Mark Johnson",
+                "testimonial1-role": "CEO, GameCorp",
+                "testimonial2-text": "\"Detaylara inanılmaz dikkat gösteren profesyonel ekip. Sayelerinde oyunumuz listelerde zirveye çıktı!\"",
+                "testimonial2-name": "Lisa Anderson",
+                "testimonial2-role": "CMO, PlayStore",
+                "testimonial3-text": "\"Aldığımız en iyi karar. Jetskig ekibi tutkulu, yetenekli ve zamanında teslim ediyor.\"",
+                "testimonial3-name": "David Lee",
+                "testimonial3-role": "Kurucu, TapFun",
+                "contact-title": "İletişime Geçin",
+                "form-name": "Adınız",
+                "form-email": "E-posta Adresiniz",
+                "form-subject": "Konu",
+                "form-message": "Mesajınız",
+                "form-submit": "Mesaj Gönder",
+                "contact-email": "E-posta",
+                "contact-address": "Adres",
+                "contact-phone": "Telefon",
+                "footer-tagline": "Mobil Oyun Mükemmelliği Yaratıyoruz"
+            },
+            de: {
+                "nav-about": "Über Uns",
+                "nav-services": "Dienstleistungen",
+                "nav-team": "Team",
+                "nav-testimonials": "Kunden",
+                "nav-contact": "Kontakt",
+                "hero-subtitle": "Wir erstellen innovative mobile Gaming-Erlebnisse, die Grenzen überschreiten",
+                "hero-cta": "Entdecken Sie unsere Spiele",
+                "about-title": "Über Uns",
+                "about-text": "Jetskig Studio ist ein kreatives Kraftpaket, das sich der Entwicklung innovativer Handyspiele widmet. Wir kombinieren modernste Technologie mit künstlerischer Vision, um unvergessliche Spielerlebnisse zu liefern.",
+                "about-games": "Veröffentlichte Spiele",
+                "about-downloads": "Downloads",
+                "about-satisfaction": "% Zufriedenheit",
+                "services-title": "Unsere Dienstleistungen",
+                "service1-title": "Spieleentwicklung",
+                "service1-desc": "Vollständige mobile Spieleentwicklung von der Idee bis zum Launch",
+                "service2-title": "UI/UX Design",
+                "service2-desc": "Atemberaubende Interfaces, mit denen Spieler gerne interagieren",
+                "service3-title": "3D & Animation",
+                "service3-desc": "Hochwertige 3D-Modelle und flüssige Animationen",
+                "service4-title": "Sound Design",
+                "service4-desc": "Immersives Audio, das Spiele zum Leben erweckt",
+                "service5-title": "Monetarisierung",
+                "service5-desc": "Strategische Monetarisierungsmodelle für maximalen Umsatz",
+                "service6-title": "Publishing",
+                "service6-desc": "End-to-End Publishing-Unterstützung für alle Plattformen",
+                "team-title": "Unser Team",
+                "team1-role": "Gründer & CEO",
+                "team2-role": "Leitender Entwickler",
+                "team3-role": "Art Director",
+                "team4-role": "UX Designer",
+                "testimonials-title": "Kundenbewertungen",
+                "testimonial1-text": "\"Jetskig Studio hat unsere Erwartungen übertroffen. Ihre Kreativität und technische Expertise sind unübertroffen!\"",
+                "testimonial1-name": "Mark Johnson",
+                "testimonial1-role": "CEO, GameCorp",
+                "testimonial2-text": "\"Professionelles Team mit unglaublicher Liebe zum Detail. Unser Spiel war dank ihnen an der Spitze der Charts!\"",
+                "testimonial2-name": "Lisa Anderson",
+                "testimonial2-role": "CMO, PlayStore",
+                "testimonial3-text": "\"Die beste Entscheidung, die wir getroffen haben. Jetskig's Team ist leidenschaftlich, kompetent und liefert pünktlich.\"",
+                "testimonial3-name": "David Lee",
+                "testimonial3-role": "Gründer, TapFun",
+                "contact-title": "Kontaktieren Sie uns",
+                "form-name": "Ihr Name",
+                "form-email": "Ihre E-Mail",
+                "form-subject": "Betreff",
+                "form-message": "Ihre Nachricht",
+                "form-submit": "Nachricht senden",
+                "contact-email": "E-Mail",
+                "contact-address": "Adresse",
+                "contact-phone": "Telefon",
+                "footer-tagline": "Mobile Gaming Exzellenz schaffen"
+            },
+            it: {
+                "nav-about": "Chi Siamo",
+                "nav-services": "Servizi",
+                "nav-team": "Team",
+                "nav-testimonials": "Testimonianze",
+                "nav-contact": "Contatti",
+                "hero-subtitle": "Creiamo esperienze di gioco mobile innovative che spingono i confini",
+                "hero-cta": "Esplora i nostri giochi",
+                "about-title": "Chi Siamo",
+                "about-text": "Jetskig Studio è un centro creativo dedicato alla creazione di giochi mobile innovativi. Combiniamo tecnologia all'avanguardia con visione artistica per offrire esperienze di gioco indimenticabili.",
+                "about-games": "Giochi Pubblicati",
+                "about-downloads": "Download",
+                "about-satisfaction": "% Soddisfazione",
+                "services-title": "I Nostri Servizi",
+                "service1-title": "Sviluppo Giochi",
+                "service1-desc": "Sviluppo completo di giochi mobile dal concept al lancio",
+                "service2-title": "UI/UX Design",
+                "service2-desc": "Interfacce sorprendenti con cui i giocatori amano interagire",
+                "service3-title": "3D & Animazione",
+                "service3-desc": "Modelli 3D di alta qualità e animazioni fluide",
+                "service4-title": "Sound Design",
+                "service4-desc": "Audio immersivo che dà vita ai giochi",
+                "service5-title": "Monetizzazione",
+                "service5-desc": "Modelli di monetizzazione strategici per ricavi massimi",
+                "service6-title": "Pubblicazione",
+                "service6-desc": "Supporto completo alla pubblicazione su tutte le piattaforme",
+                "team-title": "Il Nostro Team",
+                "team1-role": "Fondatore & CEO",
+                "team2-role": "Sviluppatore Senior",
+                "team3-role": "Art Director",
+                "team4-role": "UX Designer",
+                "testimonials-title": "Testimonianze dei Clienti",
+                "testimonial1-text": "\"Jetskig Studio ha superato le nostre aspettative. La loro creatività e competenza tecnica sono ineguagliabili!\"",
+                "testimonial1-name": "Mark Johnson",
+                "testimonial1-role": "CEO, GameCorp",
+                "testimonial2-text": "\"Team professionale con incredibile attenzione ai dettagli. Il nostro gioco è arrivato in cima alle classifiche grazie a loro!\"",
+                "testimonial2-name": "Lisa Anderson",
+                "testimonial2-role": "CMO, PlayStore",
+                "testimonial3-text": "\"La migliore decisione che abbiamo preso. Il team di Jetskig è appassionato, qualificato e consegnato in tempo.\"",
+                "testimonial3-name": "David Lee",
+                "testimonial3-role": "Fondatore, TapFun",
+                "contact-title": "Mettiti in contatto",
+                "form-name": "Il tuo nome",
+                "form-email": "La tua email",
+                "form-subject": "Oggetto",
+                "form-message": "Il tuo messaggio",
+                "form-submit": "Invia messaggio",
+                "contact-email": "Email",
+                "contact-address": "Indirizzo",
+                "contact-phone": "Telefono",
+                "footer-tagline": "Creare eccellenza nel gaming mobile"
+            },
+            fr: {
+                "nav-about": "À Propos",
+                "nav-services": "Services",
+                "nav-team": "Équipe",
+                "nav-testimonials": "Témoignages",
+                "nav-contact": "Contact",
+                "hero-subtitle": "Nous créons des expériences de jeu mobile innovantes qui repoussent les limites",
+                "hero-cta": "Explorer nos jeux",
+                "about-title": "À Propos",
+                "about-text": "Jetskig Studio est une pépinière créative dédiée à la création de jeux mobiles innovants. Nous combinons technologie de pointe et vision artistique pour offrir des expériences de jeu inoubliables.",
+                "about-games": "Jeux Publiés",
+                "about-downloads": "Téléchargements",
+                "about-satisfaction": "% Satisfaction",
+                "services-title": "Nos Services",
+                "service1-title": "Développement de jeux",
+                "service1-desc": "Développement complet de jeux mobiles du concept au lancement",
+                "service2-title": "UI/UX Design",
+                "service2-desc": "Interfaces époustouflantes que les joueurs adorent utiliser",
+                "service3-title": "3D & Animation",
+                "service3-desc": "Modèles 3D de haute qualité et animations fluides",
+                "service4-title": "Sound Design",
+                "service4-desc": "Audio immersif qui donne vie aux jeux",
+                "service5-title": "Monétisation",
+                "service5-desc": "Modèles de monétisation stratégiques pour un revenu maximal",
+                "service6-title": "Publication",
+                "service6-desc": "Support de publication de bout en bout sur toutes les plateformes",
+                "team-title": "Notre Équipe",
+                "team1-role": "Fondateur & CEO",
+                "team2-role": "Développeur Principal",
+                "team3-role": "Directeur Artistique",
+                "team4-role": "UX Designer",
+                "testimonials-title": "Témoignages Clients",
+                "testimonial1-text": "\"Jetskig Studio a dépassé nos attentes. Leur créativité et leur expertise technique sont inégalées!\"",
+                "testimonial1-name": "Mark Johnson",
+                "testimonial1-role": "CEO, GameCorp",
+                "testimonial2-text": "\"Équipe professionnelle avec une attention incroyable aux détails. Notre jeu a grimpé en tête des classements grâce à eux!\"",
+                "testimonial2-name": "Lisa Anderson",
+                "testimonial2-role": "CMO, PlayStore",
+                "testimonial3-text": "\"La meilleure décision que nous ayons prise. L'équipe de Jetskig est passionnée, qualifiée et livre à temps.\"",
+                "testimonial3-name": "David Lee",
+                "testimonial3-role": "Fondateur, TapFun",
+                "contact-title": "Contactez-nous",
+                "form-name": "Votre nom",
+                "form-email": "Votre email",
+                "form-subject": "Sujet",
+                "form-message": "Votre message",
+                "form-submit": "Envoyer",
+                "contact-email": "Email",
+                "contact-address": "Adresse",
+                "contact-phone": "Téléphone",
+                "footer-tagline": "Créer l'excellence du jeu mobile"
+            }
+        };
         
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if(targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
-          });
-          
-          // Close mobile menu if open
-          if(navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-          }
+        // Language Manager
+        class LanguageManager {
+            constructor() {
+                this.currentLang = localStorage.getItem('language') || 'en';
+                this.init();
+            }
+            
+            init() {
+                document.getElementById('language-switcher').value = this.currentLang;
+                document.getElementById('mobile-language-switcher').value = this.currentLang;
+                this.updateLanguage();
+                this.bindEvents();
+            }
+            
+            bindEvents() {
+                document.getElementById('language-switcher').addEventListener('change', (e) => {
+                    this.currentLang = e.target.value;
+                    localStorage.setItem('language', this.currentLang);
+                    this.updateLanguage();
+                });
+                
+                document.getElementById('mobile-language-switcher').addEventListener('change', (e) => {
+                    this.currentLang = e.target.value;
+                    localStorage.setItem('language', this.currentLang);
+                    this.updateLanguage();
+                });
+            }
+            
+            updateLanguage() {
+                const elements = document.querySelectorAll('[data-key]');
+                elements.forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if (translations[this.currentLang] && translations[this.currentLang][key]) {
+                        el.textContent = translations[this.currentLang][key];
+                    }
+                });
+            }
         }
-      });
-    });
-
-    // Navbar Scroll Effect
-    window.addEventListener('scroll', function() {
-      const navbar = document.getElementById('navbar');
-      if(window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
-    // Back to Top Button
-    const backToTopBtn = document.getElementById('backToTop');
-    
-    window.addEventListener('scroll', function() {
-      if(window.scrollY > 300) {
-        backToTopBtn.classList.add('active');
-      } else {
-        backToTopBtn.classList.remove('active');
-      }
-    });
-
-    // Progress Bar
-    const progressBar = document.getElementById('progressBar');
-    
-    window.addEventListener('scroll', function() {
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrollProgress = (scrollTop / scrollHeight) * 100;
-      progressBar.style.width = scrollProgress + '%';
-    });
-
-    // CAPTCHA Generation
-    function generateCaptcha() {
-      const num1 = Math.floor(Math.random() * 5) + 1;
-      const num2 = Math.floor(Math.random() * 5) + 1;
-      const operators = ['+', '-', '*'];
-      const operator = operators[Math.floor(Math.random() * operators.length)];
-      
-      let question, answer;
-      
-      switch(operator) {
-        case '+':
-          question = `${num1} + ${num2} = ?`;
-          answer = num1 + num2;
-          break;
-        case '-':
-          question = `${num1 + num2} - ${num1} = ?`;
-          answer = num2;
-          break;
-        case '*':
-          question = `${num1} × ${num2} = ?`;
-          answer = num1 * num2;
-          break;
-      }
-      
-      document.getElementById('captchaQuestion').textContent = question;
-      sessionStorage.setItem('captchaAnswer', answer);
-    }
-
-    // Contact Form Submission
-    const contactForm = document.getElementById('contactForm');
-    const notification = document.getElementById('notification');
-    
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const userAnswer = document.getElementById('captchaAnswer').value.trim();
-      const correctAnswer = sessionStorage.getItem('captchaAnswer');
-      
-      if(userAnswer !== correctAnswer) {
-        alert('Lütfen CAPTCHA doğru cevaplayın!');
-        generateCaptcha();
-        return;
-      }
-      
-      // Show notification
-      notification.classList.add('active');
-      
-      // Hide notification after 3 seconds
-      setTimeout(() => {
-        notification.classList.remove('active');
-      }, 3000);
-      
-      // Reset form
-      this.reset();
-      generateCaptcha();
-    });
-
-    // Modal
-    const modal = document.getElementById('modal');
-    const closeModal = document.getElementById('closeModal');
-    
-    // Show modal after 5 seconds
-    setTimeout(() => {
-      modal.classList.add('active');
-    }, 5000);
-    
-    closeModal.addEventListener('click', function() {
-      modal.classList.remove('active');
-    });
-    
-    // Close modal when clicking outside
-    window.addEventListener('click', function(e) {
-      if(e.target === modal) {
-        modal.classList.remove('active');
-      }
-    });
-
-    // Initialize CAPTCHA
-    generateCaptcha();
-
-    // Scroll Reveal Animation
-    const scrollReveal = ScrollReveal({
-      origin: 'bottom',
-      distance: '60px',
-      duration: 1000,
-      delay: 200,
-      reset: true
-    });
-
-    scrollReveal.reveal('.app-card, .team-member, .stat-box, .contact-info, .contact-form', {
-      interval: 200
-    });
-
-    // Animate elements on scroll
-    function animateOnScroll() {
-      const elements = document.querySelectorAll('.app-card, .team-member, .stat-box');
-      
-      elements.forEach(element => {
-        const elementPosition = element.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
         
-        if(elementPosition < windowHeight - 100) {
-          element.style.opacity = '1';
-          element.style.transform = 'translateY(0)';
-        }
-      });
-    }
-    
-    // Initialize animation
-    window.addEventListener('load', animateOnScroll);
-    window.addEventListener('scroll', animateOnScroll);
-
-    // Theme Toggle (Dark/Light Mode)
-    const themeToggle = document.createElement('div');
-    themeToggle.className = 'theme-toggle';
-    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    document.body.appendChild(themeToggle);
-    
-    themeToggle.addEventListener('click', function() {
-      document.body.classList.toggle('light-mode');
-      
-      if(document.body.classList.contains('light-mode')) {
-        this.innerHTML = '<i class="fas fa-sun"></i>';
-        // Light mode styles
-        document.documentElement.style.setProperty('--dark-bg', '#f5f5f5');
-        document.documentElement.style.setProperty('--darker-bg', '#e0e0e0');
-        document.documentElement.style.setProperty('--card-bg', '#ffffff');
-        document.documentElement.style.setProperty('--text-light', '#333333');
-        document.documentElement.style.setProperty('--text-gray', '#666666');
-        document.documentElement.style.setProperty('--glow-color', 'rgba(0, 0, 0, 0.3)');
-      } else {
-        this.innerHTML = '<i class="fas fa-moon"></i>';
-        // Dark mode styles
-        document.documentElement.style.setProperty('--dark-bg', '#000000');
-        document.documentElement.style.setProperty('--darker-bg', '#111111');
-        document.documentElement.style.setProperty('--card-bg', '#1a1a1a');
-        document.documentElement.style.setProperty('--text-light', '#ffffff');
-        document.documentElement.style.setProperty('--text-gray', '#aaaaaa');
-        document.documentElement.style.setProperty('--glow-color', 'rgba(255, 255, 255, 0.7)');
-      }
-    });
-
-    // Newsletter Form
-    const newsletterForm = document.querySelector('.newsletter-form');
-    
-    newsletterForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const emailInput = this.querySelector('input[type="email"]');
-      
-      if(emailInput.value.trim() === '') {
-        alert('Lütfen e-posta adresinizi girin!');
-        return;
-      }
-      
-      // Simulate successful subscription
-      alert('Teşekkürler! Bültenimize abone oldunuz.');
-      emailInput.value = '';
-    });
-
-    // Add hover effects to all elements with class 'glow-on-hover'
-    document.querySelectorAll('.glow-on-hover').forEach(element => {
-      element.addEventListener('mouseenter', () => {
-        element.style.boxShadow = '0 0 15px var(--glow-color)';
-      });
-      element.addEventListener('mouseleave', () => {
-        element.style.boxShadow = '0 0 5px var(--glow-color)';
-      });
-    });
-  </script>
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loader
+            setTimeout(() => {
+                gsap.to('.loader', {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => {
+                        document.querySelector('.loader').style.display = 'none';
+                    }
+                });
+            }, 2000);
+            
+            // Initialize Language Manager
+            const langManager = new LanguageManager();
+            
+            // Cursor Animation
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                setTimeout(() => {
+                    cursorFollower.style.left = e.clientX - 10 + 'px';
+                    cursorFollower.style.top = e.clientY - 10 + 'px';
+                }, 100);
+            });
+            
+            // Scroll Progress
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+                
+                // Back to top button
+                if (scrollTop > 500) {
+                    document.getElementById('back-to-top').classList.add('visible');
+                } else {
+                    document.getElementById('back-to-top').classList.remove('visible');
+                }
+            });
+            
+            // Back to top button
+            document.getElementById('back-to-top').addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // Smooth scroll for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Close mobile menu if open
+                        document.getElementById('mobile-menu').classList.remove('active');
+                    }
+                });
+            });
+            
+            // Mobile menu toggle
+            document.getElementById('mobile-toggle').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('active');
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    document.getElementById('mobile-menu').classList.remove('active');
+                });
+            });
+            
+            // Typewriter Effect
+            const typed = new Typed('.typed-text', {
+                strings: [
+                    'JETSKIG STUDIO',
+                    'We Create Games',
+                    'We Create Experiences',
+                    'We Create Magic'
+                ],
+                typeSpeed: 80,
+                backSpeed: 50,
+                backDelay: 2000,
+                loop: true,
+                showCursor: true,
+                cursorChar: '_'
+            });
+            
+            // Particles.js
+            particlesJS('particles-canvas', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: ["#6B46C1", "#A8D5BA"] },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: false },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out"
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" }
+                    }
+                }
+            });
+            
+            // GSAP Scroll Animations
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Animate sections
+            gsap.utils.toArray('section').forEach(section => {
+                gsap.from(section.querySelector('.section-title'), {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    },
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
+            });
+            
+            // Animate service cards
+            gsap.utils.toArray('.service-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.6,
+                    delay: i * 0.1,
+                    ease: "power2.out"
+                });
+            });
+            
+            // Animate team cards
+            gsap.utils.toArray('.team-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 0.6,
+                    delay: i * 0.1,
+                    ease: "back.out(1.7)"
+                });
+            });
+            
+            // Counter Animation
+            const animateCounters = () => {
+                document.querySelectorAll('.counter').forEach(counter => {
+                    const target = counter.getAttribute('data-target');
+                    const isMillion = target.includes('M');
+                    const numericTarget = parseFloat(target.replace('M', '')) * (isMillion ? 1000000 : 1);
+                    
+                    gsap.to(counter, {
+                        innerHTML: numericTarget,
+                        duration: 2,
+                        snap: { innerHTML: 1 },
+                        scrollTrigger: {
+                            trigger: counter,
+                            start: "top 80%"
+                        },
+                        onUpdate: function() {
+                            const value = Math.floor(counter.innerHTML);
+                            counter.innerHTML = isMillion ? (value / 1000000).toFixed(1) + 'M' : value;
+                        }
+                    });
+                });
+            };
+            animateCounters();
+            
+            // Testimonials Slider
+            const splide = new Splide('#testimonials-slider', {
+                type: 'loop',
+                autoplay: true,
+                interval: 5000,
+                pauseOnHover: true,
+                arrows: false,
+                pagination: true
+            });
+            splide.mount();
+            
+            // Form Submission
+            document.getElementById('contact-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const button = e.target.querySelector('button[type="submit"]');
+                const originalText = button.textContent;
+                
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-check"></i> Sent!';
+                    button.style.background = 'linear-gradient(135deg, #10B981, #34D399)';
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                        button.style.background = '';
+                        e.target.reset();
+                    }, 2000);
+                }, 1500);
+            });
+            
+            // Hover effects for interactive elements
+            document.querySelectorAll('a, button, .service-card, .team-card').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
+            });
+            
+            // Parallax effect for hero section
+            window.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 20;
+                const y = (e.clientY / window.innerHeight - 0.5) * 20;
+                
+                gsap.to('#hero', {
+                    backgroundPosition: `${x}px ${y}px`,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+            
+            // Service card tilt effect
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    gsap.to(card, {
+                        rotationX: -y / 10,
+                        rotationY: x / 10,
+                        transformPerspective: 1000,
+                        duration: 0.3
+                    });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        rotationX: 0,
+                        rotationY: 0,
+                        duration: 0.3
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
